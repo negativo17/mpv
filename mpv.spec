@@ -1,26 +1,33 @@
+#Todo
+#Checking for VapourSynth filter bridge (Python)    : no ('vapoursynth >= 24 vapoursynth-script >= 23' not found)
+#Checking for VapourSynth filter bridge (Lazy Lua)  : no ('vapoursynth >= 24' not found)
+#Checking for VapourSynth filter bridge (core)      : not found any of vapoursynth-lazy, vapoursynth
+
 Name:           mpv
-Version:        0.19.0
+Version:        0.20.0
 Release:        1%{?dist}
 Epoch:          1
 Summary:        Movie player playing most video formats and DVDs
 License:        GPLv2+
 URL:            http://%{name}.io/
 
-Source0:        https://github.com/%{name}-player/%{name}/archive/v%{version}.tar.gz
+Source0:        https://github.com/%{name}-player/%{name}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
 # set defaults for Fedora
 Patch0:         %{name}-config.patch
 
-BuildRequires:  desktop-file-utils
 BuildRequires:  ffmpeg-devel
 BuildRequires:  libjpeg-turbo-devel
+BuildRequires:  lua-devel
 BuildRequires:  perl(Encode)
 BuildRequires:  perl(Math::BigInt)
 BuildRequires:  perl(Math::BigRat)
 BuildRequires:  python-docutils
+BuildRequires:  rst2pdf
 BuildRequires:  waf
 
 BuildRequires:  pkgconfig(alsa)
+BuildRequires:  pkgconfig(caca) >= 0.99.beta18
 BuildRequires:  pkgconfig(dvdnav)
 BuildRequires:  pkgconfig(dvdread)
 BuildRequires:  pkgconfig(egl)
@@ -29,7 +36,7 @@ BuildRequires:  pkgconfig(gbm)
 BuildRequires:  pkgconfig(gl)
 BuildRequires:  pkgconfig(jack)
 BuildRequires:  pkgconfig(lcms2)
-BuildRequires:  pkgconfig(libarchive)
+BuildRequires:  pkgconfig(libarchive) >= 3.0.0
 BuildRequires:  pkgconfig(libass)
 BuildRequires:  pkgconfig(libbluray)
 BuildRequires:  pkgconfig(libcdio)
@@ -37,19 +44,14 @@ BuildRequires:  pkgconfig(libcdio_paranoia)
 BuildRequires:  pkgconfig(libdrm)
 BuildRequires:  pkgconfig(libguess)
 BuildRequires:  pkgconfig(libpulse)
-BuildRequires:  pkgconfig(libquvi-0.9)
 BuildRequires:  pkgconfig(libv4l2)
 BuildRequires:  pkgconfig(libva)
-BuildRequires:  pkgconfig(lua-5.1)
+BuildRequires:  pkgconfig(openal) >= 1.13
 BuildRequires:  pkgconfig(rubberband)
 BuildRequires:  pkgconfig(sdl2)
 BuildRequires:  pkgconfig(smbclient)
-BuildRequires:  pkgconfig(uchardet) >= 0.0.5
+BuildRequires:  pkgconfig(uchardet)
 BuildRequires:  pkgconfig(vdpau)
-BuildRequires:  pkgconfig(wayland-client)
-BuildRequires:  pkgconfig(wayland-cursor)
-BuildRequires:  pkgconfig(wayland-egl)
-BuildRequires:  pkgconfig(wayland-scanner)
 BuildRequires:  pkgconfig(x11)
 BuildRequires:  pkgconfig(xext)
 BuildRequires:  pkgconfig(xinerama)
@@ -58,6 +60,18 @@ BuildRequires:  pkgconfig(xrandr)
 BuildRequires:  pkgconfig(xscrnsaver)
 BuildRequires:  pkgconfig(xv)
 BuildRequires:  pkgconfig(zlib)
+
+%if 0%{?fedora}
+BuildRequires:  pkgconfig(wayland-client)
+BuildRequires:  pkgconfig(wayland-cursor)
+BuildRequires:  pkgconfig(wayland-egl)
+BuildRequires:  pkgconfig(wayland-scanner)
+%endif
+
+%if 0%{?fedora} <= 24 || 0%{?rhel} <= 8
+Requires(post): desktop-file-utils
+Requires(postun): desktop-file-utils
+%endif
 
 Requires:       hicolor-icon-theme
 
@@ -100,7 +114,11 @@ waf configure \
     --docdir=%{_docdir}/%{name} \
     --confdir=%{_sysconfdir}/%{name} \
     --disable-build-date \
+    --enable-libarchive \
     --enable-libmpv-shared \
+    --enable-html-build \
+    --enable-openal \
+    --enable-pdf-build \
     --enable-sdl2 \
     --enable-encoding
 
@@ -113,11 +131,15 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 install -Dpm 644 README.md etc/input.conf etc/mpv.conf -t %{buildroot}%{_docdir}/%{name}
 
 %post
+%if 0%{?fedora} <= 24 || 0%{?rhel} <= 8
 /usr/bin/update-desktop-database &> /dev/null || :
+%endif
 /bin/touch --no-create %{_datadir}/icons/hicolor &> /dev/null || :
 
 %postun
+%if 0%{?fedora} <= 24 || 0%{?rhel} <= 8
 /usr/bin/update-desktop-database &> /dev/null || :
+%endif
 if [ $1 -eq 0 ] ; then
     /bin/touch --no-create %{_datadir}/icons/hicolor &> /dev/null || :
     /usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &> /dev/null || :
@@ -151,7 +173,14 @@ fi
 %{_libdir}/pkgconfig/mpv.pc
 
 %changelog
-* Wed Aug 17 2016 Simone Caronni <negativo17@gmail.com> - 0.19.0-1
+* Sat Aug 27 2016 Simone Caronni <negativo17@gmail.com> - 1:0.20.0-1
+- Update to 0.20.0, update build requirements.
+- Enable building on CentOS/RHEL 7.
+- Enable PDF/HTML docs.
+- Enable libarchive, OpenAL, Colour Ascii Art (caca) support.
+- Do not run update-desktop-database on Fedora 25+ as per packaging guidelines.
+
+* Wed Aug 17 2016 Simone Caronni <negativo17@gmail.com> - 1:0.19.0-1
 - Update to 0.19.0, bump Epoch.
 
 * Sat Jul 30 2016 Julian Sikorski <belegdol@fedoraproject.org> - 0.18.1-2
