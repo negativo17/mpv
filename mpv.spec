@@ -23,7 +23,9 @@ BuildRequires:  perl(Encode)
 BuildRequires:  perl(Math::BigInt)
 BuildRequires:  perl(Math::BigRat)
 BuildRequires:  python-docutils
+%if 0%{?fedora}
 BuildRequires:  rst2pdf
+%endif
 BuildRequires:  waf
 
 BuildRequires:  pkgconfig(alsa)
@@ -118,9 +120,11 @@ waf configure \
     --enable-libmpv-shared \
     --enable-html-build \
     --enable-openal \
-    --enable-pdf-build \
     --enable-sdl2 \
-    --enable-encoding
+    --enable-encoding \
+%if 0%{?fedora}
+    --enable-pdf-build
+%endif
 
 waf build %{?_smp_mflags}
 
