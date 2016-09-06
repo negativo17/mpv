@@ -16,6 +16,7 @@ Source0:        https://github.com/%{name}-player/%{name}/archive/v%{version}.ta
 # set defaults for Fedora
 Patch0:         %{name}-config.patch
 
+BuildRequires:  desktop-file-utils
 BuildRequires:  ffmpeg-devel
 BuildRequires:  libjpeg-turbo-devel
 BuildRequires:  lua-devel
@@ -70,7 +71,7 @@ BuildRequires:  pkgconfig(wayland-egl)
 BuildRequires:  pkgconfig(wayland-scanner)
 %endif
 
-%if 0%{?fedora} <= 24 || 0%{?rhel} <= 8
+%if 0%{?fedora} == 24 || 0%{?fedora} == 23 || 0%{?rhel} ==7
 Requires(post): desktop-file-utils
 Requires(postun): desktop-file-utils
 %endif
@@ -135,13 +136,13 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 install -Dpm 644 README.md etc/input.conf etc/mpv.conf -t %{buildroot}%{_docdir}/%{name}
 
 %post
-%if 0%{?fedora} <= 24 || 0%{?rhel} <= 8
+%if 0%{?fedora} == 24 || 0%{?fedora} == 23 || 0%{?rhel} ==7
 /usr/bin/update-desktop-database &> /dev/null || :
 %endif
 /bin/touch --no-create %{_datadir}/icons/hicolor &> /dev/null || :
 
 %postun
-%if 0%{?fedora} <= 24 || 0%{?rhel} <= 8
+%if 0%{?fedora} == 24 || 0%{?fedora} == 23 || 0%{?rhel} ==7
 /usr/bin/update-desktop-database &> /dev/null || :
 %endif
 if [ $1 -eq 0 ] ; then
