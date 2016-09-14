@@ -5,7 +5,7 @@
 
 Name:           mpv
 Version:        0.20.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Epoch:          1
 Summary:        Movie player playing most video formats and DVDs
 License:        GPLv2+
@@ -19,7 +19,7 @@ Patch0:         %{name}-config.patch
 BuildRequires:  desktop-file-utils
 BuildRequires:  ffmpeg-devel
 BuildRequires:  libjpeg-turbo-devel
-BuildRequires:  lua-devel
+BuildRequires:  luajit-devel
 BuildRequires:  perl(Encode)
 BuildRequires:  perl(Math::BigInt)
 BuildRequires:  perl(Math::BigRat)
@@ -178,6 +178,9 @@ fi
 %{_libdir}/pkgconfig/mpv.pc
 
 %changelog
+* Wed Sep 14 2016 Simone Caronni <negativo17@gmail.com> - 1:0.20.0-2
+- Adjust Lua build requirements.
+
 * Sat Aug 27 2016 Simone Caronni <negativo17@gmail.com> - 1:0.20.0-1
 - Update to 0.20.0, update build requirements.
 - Enable building on CentOS/RHEL 7.
