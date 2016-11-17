@@ -132,7 +132,7 @@ waf configure \
     --enable-encoding \
     --libdir=%{_libdir} \
     --mandir=%{_mandir} \
-    --prefix=%{_prefix}
+    --prefix=%{_prefix} \
 %if 0%{?fedora}
     --enable-pdf-build
 %endif
