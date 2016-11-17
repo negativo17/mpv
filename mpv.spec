@@ -19,19 +19,23 @@ Patch0:         %{name}-config.patch
 BuildRequires:  desktop-file-utils
 BuildRequires:  libjpeg-turbo-devel
 BuildRequires:  luajit-devel
-BuildRequires:  nvidia-driver-devel
 BuildRequires:  perl(Encode)
 BuildRequires:  perl(Math::BigInt)
 BuildRequires:  perl(Math::BigRat)
 BuildRequires:  python-docutils
+BuildRequires:  waf
+
 %if 0%{?fedora}
 BuildRequires:  rst2pdf
 %endif
-BuildRequires:  waf
+
+%ifarch x86_64
+BuildRequires:  nvidia-driver-devel
+BuildRequires:  cuda-devel >= 7.5
+%endif
 
 BuildRequires:  pkgconfig(alsa)
 BuildRequires:  pkgconfig(caca) >= 0.99.beta18
-BuildRequires:  pkgconfig(cuda) >= 7.5
 BuildRequires:  pkgconfig(dvdnav)
 BuildRequires:  pkgconfig(dvdread)
 BuildRequires:  pkgconfig(egl)
@@ -185,7 +189,7 @@ fi
 
 %changelog
 * Fri Nov 11 2016 Simone Caronni <negativo17@gmail.com> - 1:0.21.0-1
-- Update to 0.21.0, enable CUDA support.
+- Update to 0.21.0, enable CUDA support for x86_64.
 
 * Wed Sep 14 2016 Simone Caronni <negativo17@gmail.com> - 1:0.20.0-2
 - Adjust Lua build requirements.
