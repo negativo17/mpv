@@ -24,7 +24,9 @@ BuildRequires:  perl(Encode)
 BuildRequires:  perl(Math::BigInt)
 BuildRequires:  perl(Math::BigRat)
 BuildRequires:  python-docutils
+%if 0%{?fedora}
 BuildRequires:  rst2pdf
+%endif
 BuildRequires:  waf
 
 BuildRequires:  pkgconfig(alsa)
@@ -124,10 +126,12 @@ waf configure \
     --enable-openal \
     --enable-sdl2 \
     --enable-encoding \
-    --enable-pdf-build \
     --libdir=%{_libdir} \
     --mandir=%{_mandir} \
     --prefix=%{_prefix}
+%if 0%{?fedora}
+    --enable-pdf-build
+%endif
 
 waf build %{?_smp_mflags}
 
@@ -182,7 +186,6 @@ fi
 %changelog
 * Fri Nov 11 2016 Simone Caronni <negativo17@gmail.com> - 1:0.21.0-1
 - Update to 0.21.0, enable CUDA support.
-- Enable PDF documentation on RHEL 7.
 
 * Wed Sep 14 2016 Simone Caronni <negativo17@gmail.com> - 1:0.20.0-2
 - Adjust Lua build requirements.
