@@ -4,8 +4,8 @@
 #Checking for VapourSynth filter bridge (core)      : not found any of vapoursynth-lazy, vapoursynth
 
 Name:           mpv
-Version:        0.20.0
-Release:        2%{?dist}
+Version:        0.21.0
+Release:        1%{?dist}
 Epoch:          1
 Summary:        Movie player playing most video formats and DVDs
 License:        GPLv2+
@@ -17,20 +17,19 @@ Source0:        https://github.com/%{name}-player/%{name}/archive/v%{version}.ta
 Patch0:         %{name}-config.patch
 
 BuildRequires:  desktop-file-utils
-BuildRequires:  ffmpeg-devel
 BuildRequires:  libjpeg-turbo-devel
 BuildRequires:  luajit-devel
+BuildRequires:  nvidia-driver-devel
 BuildRequires:  perl(Encode)
 BuildRequires:  perl(Math::BigInt)
 BuildRequires:  perl(Math::BigRat)
 BuildRequires:  python-docutils
-%if 0%{?fedora}
 BuildRequires:  rst2pdf
-%endif
 BuildRequires:  waf
 
 BuildRequires:  pkgconfig(alsa)
 BuildRequires:  pkgconfig(caca) >= 0.99.beta18
+BuildRequires:  pkgconfig(cuda) >= 7.5
 BuildRequires:  pkgconfig(dvdnav)
 BuildRequires:  pkgconfig(dvdread)
 BuildRequires:  pkgconfig(egl)
@@ -40,6 +39,9 @@ BuildRequires:  pkgconfig(gl)
 BuildRequires:  pkgconfig(jack)
 BuildRequires:  pkgconfig(lcms2)
 BuildRequires:  pkgconfig(libarchive) >= 3.0.0
+BuildRequires:  pkgconfig(libavcodec) >= 56.1.0
+BuildRequires:  pkgconfig(libavformat) >= 56.01.0
+BuildRequires:  pkgconfig(libavutil) >= 54.02.0
 BuildRequires:  pkgconfig(libass)
 BuildRequires:  pkgconfig(libbluray)
 BuildRequires:  pkgconfig(libcdio)
@@ -47,6 +49,7 @@ BuildRequires:  pkgconfig(libcdio_paranoia)
 BuildRequires:  pkgconfig(libdrm)
 BuildRequires:  pkgconfig(libguess)
 BuildRequires:  pkgconfig(libpulse)
+BuildRequires:  pkgconfig(libswscale) >= 2.1.3
 BuildRequires:  pkgconfig(libv4l2)
 BuildRequires:  pkgconfig(libva)
 BuildRequires:  pkgconfig(openal) >= 1.13
@@ -108,24 +111,23 @@ Libmpv development header files and libraries.
 %patch0 -p1
 
 %build
-CCFLAGS="%{optflags}" \
+export CFLAGS="%{optflags} -I%{_includedir}/cuda"
+export CCFLAGS="%{optflags} -I%{_includedir}/cuda"
 waf configure \
-    --prefix=%{_prefix} \
     --bindir=%{_bindir} \
-    --libdir=%{_libdir} \
-    --mandir=%{_mandir} \
-    --docdir=%{_docdir}/%{name} \
     --confdir=%{_sysconfdir}/%{name} \
     --disable-build-date \
+    --docdir=%{_docdir}/%{name} \
     --enable-libarchive \
     --enable-libmpv-shared \
     --enable-html-build \
     --enable-openal \
     --enable-sdl2 \
     --enable-encoding \
-%if 0%{?fedora}
-    --enable-pdf-build
-%endif
+    --enable-pdf-build \
+    --libdir=%{_libdir} \
+    --mandir=%{_mandir} \
+    --prefix=%{_prefix}
 
 waf build %{?_smp_mflags}
 
@@ -178,6 +180,10 @@ fi
 %{_libdir}/pkgconfig/mpv.pc
 
 %changelog
+* Fri Nov 11 2016 Simone Caronni <negativo17@gmail.com> - 1:0.21.0-1
+- Update to 0.21.0, enable CUDA support.
+- Enable PDF documentation on RHEL 7.
+
 * Wed Sep 14 2016 Simone Caronni <negativo17@gmail.com> - 1:0.20.0-2
 - Adjust Lua build requirements.
 
