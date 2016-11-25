@@ -4,7 +4,7 @@
 #Checking for VapourSynth filter bridge (core)      : not found any of vapoursynth-lazy, vapoursynth
 
 Name:           mpv
-Version:        0.21.0
+Version:        0.22.0
 Release:        1%{?dist}
 Epoch:          1
 Summary:        Movie player playing most video formats and DVDs
@@ -188,6 +188,9 @@ fi
 %{_libdir}/pkgconfig/mpv.pc
 
 %changelog
+* Fri Nov 25 2016 Simone Caronni <negativo17@gmail.com> - 1:0.22.0-1
+- Update to 0.22.0.
+
 * Fri Nov 11 2016 Simone Caronni <negativo17@gmail.com> - 1:0.21.0-1
 - Update to 0.21.0, enable CUDA support for x86_64.
 
