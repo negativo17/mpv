@@ -5,7 +5,7 @@
 
 Name:           mpv
 Version:        0.22.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Epoch:          1
 Summary:        Movie player playing most video formats and DVDs
 License:        GPLv2+
@@ -188,6 +188,9 @@ fi
 %{_libdir}/pkgconfig/mpv.pc
 
 %changelog
+* Tue Nov 29 2016 Simone Caronni <negativo17@gmail.com> - 1:0.22.0-3
+- Patch so minimal updates to FFmpeg will not require a rebuild
+
 * Tue Nov 29 2016 Simone Caronni <negativo17@gmail.com> - 1:0.22.0-2
 - MPV triggers a warning even if the sahred object major version to which it is
   linked against is the same. Rebuild for FFMpeg 3.2.1.
