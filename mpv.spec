@@ -12,9 +12,8 @@ License:        GPLv2+
 URL:            http://%{name}.io/
 
 Source0:        https://github.com/%{name}-player/%{name}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
-
-# set defaults for Fedora
 Patch0:         %{name}-config.patch
+Patch1:         %{name}-do-not-fail-with-minor-ffmpeg-updates.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  libjpeg-turbo-devel
@@ -115,6 +114,7 @@ Libmpv development header files and libraries.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 %build
 export CFLAGS="%{optflags} -I%{_includedir}/cuda"
