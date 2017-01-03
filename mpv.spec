@@ -28,6 +28,10 @@ BuildRequires:  waf
 BuildRequires:  rst2pdf
 %endif
 
+%if 0%{?rhel} ==7
+BuildRequires:  ffmpeg
+%endif
+
 %ifarch x86_64
 BuildRequires:  nvidia-driver-devel
 BuildRequires:  cuda-devel >= 7.5
