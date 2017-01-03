@@ -4,8 +4,8 @@
 #Checking for VapourSynth filter bridge (core)      : not found any of vapoursynth-lazy, vapoursynth
 
 Name:           mpv
-Version:        0.22.0
-Release:        3%{?dist}
+Version:        0.23.0
+Release:        1%{?dist}
 Epoch:          1
 Summary:        Movie player playing most video formats and DVDs
 License:        GPLv2+
@@ -44,9 +44,9 @@ BuildRequires:  pkgconfig(gl)
 BuildRequires:  pkgconfig(jack)
 BuildRequires:  pkgconfig(lcms2)
 BuildRequires:  pkgconfig(libarchive) >= 3.0.0
-BuildRequires:  pkgconfig(libavcodec) >= 56.1.0
-BuildRequires:  pkgconfig(libavformat) >= 56.01.0
-BuildRequires:  pkgconfig(libavutil) >= 54.02.0
+BuildRequires:  pkgconfig(libavcodec) >= 57
+BuildRequires:  pkgconfig(libavformat) >= 57
+BuildRequires:  pkgconfig(libavutil) >= 55
 BuildRequires:  pkgconfig(libass)
 BuildRequires:  pkgconfig(libbluray)
 BuildRequires:  pkgconfig(libcdio)
@@ -54,7 +54,7 @@ BuildRequires:  pkgconfig(libcdio_paranoia)
 BuildRequires:  pkgconfig(libdrm)
 BuildRequires:  pkgconfig(libguess)
 BuildRequires:  pkgconfig(libpulse)
-BuildRequires:  pkgconfig(libswscale) >= 2.1.3
+BuildRequires:  pkgconfig(libswscale) >= 4
 BuildRequires:  pkgconfig(libv4l2)
 BuildRequires:  pkgconfig(libva)
 BuildRequires:  pkgconfig(openal) >= 1.13
@@ -188,6 +188,10 @@ fi
 %{_libdir}/pkgconfig/mpv.pc
 
 %changelog
+* Tue Jan 03 2017 Simone Caronni <negativo17@gmail.com> - 1:0.23.0-1
+- Update to 0.23.0.
+- Bump up FFmpeg build requirements to pull in newest FFmpeg at build time.
+
 * Tue Nov 29 2016 Simone Caronni <negativo17@gmail.com> - 1:0.22.0-3
 - Patch so minimal updates to FFmpeg will not require a rebuild
 
