@@ -43,16 +43,16 @@ BuildRequires:  pkgconfig(gl)
 BuildRequires:  pkgconfig(jack)
 BuildRequires:  pkgconfig(lcms2)
 BuildRequires:  pkgconfig(libarchive) >= 3.0.0
-BuildRequires:  pkgconfig(libavcodec) >= 57
-BuildRequires:  pkgconfig(libavformat) >= 57
-BuildRequires:  pkgconfig(libavutil) >= 55
+BuildRequires:  pkgconfig(libavcodec) >= 57.25.0
+BuildRequires:  pkgconfig(libavformat) >= 57.07.0
+BuildRequires:  pkgconfig(libavutil) >= 55.20.0
 BuildRequires:  pkgconfig(libass)
 BuildRequires:  pkgconfig(libbluray)
 BuildRequires:  pkgconfig(libcdio)
 BuildRequires:  pkgconfig(libcdio_paranoia)
 BuildRequires:  pkgconfig(libdrm)
 BuildRequires:  pkgconfig(libpulse)
-BuildRequires:  pkgconfig(libswscale) >= 4
+BuildRequires:  pkgconfig(libswscale) >= 4.0.0
 BuildRequires:  pkgconfig(libv4l2)
 BuildRequires:  pkgconfig(libva)
 BuildRequires:  pkgconfig(openal) >= 1.13
