@@ -4,7 +4,7 @@
 #Checking for VapourSynth filter bridge (core)      : not found any of vapoursynth-lazy, vapoursynth
 
 Name:           mpv
-Version:        0.23.0
+Version:        0.24.0
 Release:        1%{?dist}
 Epoch:          1
 Summary:        Movie player playing most video formats and DVDs
@@ -28,10 +28,10 @@ BuildRequires:  waf
 BuildRequires:  rst2pdf
 %endif
 
-%ifarch x86_64
-BuildRequires:  nvidia-driver-devel
-BuildRequires:  cuda-devel >= 7.5
-%endif
+#%ifarch x86_64
+#BuildRequires:  nvidia-driver-devel
+#BuildRequires:  cuda-devel >= 7.5
+#%endif
 
 BuildRequires:  pkgconfig(alsa)
 BuildRequires:  pkgconfig(caca) >= 0.99.beta18
@@ -186,6 +186,11 @@ fi
 %{_libdir}/pkgconfig/mpv.pc
 
 %changelog
+* Tue Feb 14 2017 Simone Caronni <negativo17@gmail.com> - 1:0.24.0-1
+- Update to 0.24.0.
+- Disable CUDA support until FFmpeg 3.4, it does not work without the new
+  dynamic CUDA library loading introduced in FFmpeg 3.4.
+
 * Tue Jan 03 2017 Simone Caronni <negativo17@gmail.com> - 1:0.23.0-1
 - Update to 0.23.0.
 - Bump up FFmpeg build requirements to pull in newest FFmpeg at build time.
