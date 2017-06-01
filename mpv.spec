@@ -28,10 +28,10 @@ BuildRequires:  waf
 BuildRequires:  rst2pdf
 %endif
 
-#%ifarch x86_64
-#BuildRequires:  nvidia-driver-devel
-#BuildRequires:  cuda-devel >= 7.5
-#%endif
+%ifarch x86_64
+BuildRequires:  nvidia-driver-devel
+BuildRequires:  cuda-devel >= 7.5
+%endif
 
 BuildRequires:  pkgconfig(alsa)
 BuildRequires:  pkgconfig(caca) >= 0.99.beta18
@@ -43,16 +43,16 @@ BuildRequires:  pkgconfig(gl)
 BuildRequires:  pkgconfig(jack)
 BuildRequires:  pkgconfig(lcms2)
 BuildRequires:  pkgconfig(libarchive) >= 3.0.0
-BuildRequires:  pkgconfig(libavcodec) >= 57.25.0
-BuildRequires:  pkgconfig(libavformat) >= 57.07.0
-BuildRequires:  pkgconfig(libavutil) >= 55.20.0
+BuildRequires:  pkgconfig(libavcodec) >= 57.89.100
+BuildRequires:  pkgconfig(libavformat) >= 57.71.100
+BuildRequires:  pkgconfig(libavutil) >= 55.58.100
 BuildRequires:  pkgconfig(libass)
 BuildRequires:  pkgconfig(libbluray)
 BuildRequires:  pkgconfig(libcdio)
 BuildRequires:  pkgconfig(libcdio_paranoia)
 BuildRequires:  pkgconfig(libdrm)
 BuildRequires:  pkgconfig(libpulse)
-BuildRequires:  pkgconfig(libswscale) >= 4.0.0
+BuildRequires:  pkgconfig(libswscale) >= 4.6.100
 BuildRequires:  pkgconfig(libv4l2)
 BuildRequires:  pkgconfig(libva)
 BuildRequires:  pkgconfig(openal) >= 1.13
@@ -77,7 +77,7 @@ BuildRequires:  pkgconfig(wayland-egl)
 BuildRequires:  pkgconfig(wayland-scanner)
 %endif
 
-%if 0%{?fedora} == 24 || 0%{?fedora} == 23 || 0%{?rhel} ==7
+%if 0%{?fedora} || 0%{?rhel} ==7
 Requires(post): desktop-file-utils
 Requires(postun): desktop-file-utils
 %endif
@@ -93,17 +93,17 @@ output methods are supported.
 
 %package        libs
 Summary:        Dynamic library for Mpv frontends 
-Provides:       libmpv = %{?epoch}:%{version}-%{release}
-Obsoletes:      libmpv < %{?epoch}:%{version}-%{release}
+Provides:       libmpv = %{?epoch:%{epoch}:}%{version}-%{release}
+Obsoletes:      libmpv < %{?epoch:%{epoch}:}%{version}-%{release}
 
 %description    libs
 This package contains the dynamic library libmpv, which provides access to Mpv.
 
 %package        libs-devel
 Summary:        Development package for libmpv
-Requires:       mpv-libs%{_isa} = %{?epoch}:%{version}-%{release}
-Provides:       libmpv-devel = %{?epoch}:%{version}-%{release}
-Obsoletes:      libmpv-devel < %{?epoch}:%{version}-%{release}
+Requires:       mpv-libs%{_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
+Provides:       libmpv-devel = %{?epoch:%{epoch}:}%{version}-%{release}
+Obsoletes:      libmpv-devel < %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       pkgconfig
 
 %description    libs-devel
@@ -188,6 +188,8 @@ fi
 %changelog
 * Thu Jun 01 2017 Simone Caronni <negativo17@gmail.com> - 1:0.25.0-1
 - Update to 0.25.0.
+- Adjust epoch requirements.
+- Require at least FFmpeg 3.3 to build, for dynamic CUDA loading.
 
 * Thu Mar 23 2017 Simone Caronni <negativo17@gmail.com> - 1:0.24.0-2
 - Rebuild for libbluray update.
