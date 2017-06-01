@@ -4,8 +4,8 @@
 #Checking for VapourSynth filter bridge (core)      : not found any of vapoursynth-lazy, vapoursynth
 
 Name:           mpv
-Version:        0.24.0
-Release:        2%{?dist}
+Version:        0.25.0
+Release:        1%{?dist}
 Epoch:          1
 Summary:        Movie player playing most video formats and DVDs
 License:        GPLv2+
@@ -186,6 +186,9 @@ fi
 %{_libdir}/pkgconfig/mpv.pc
 
 %changelog
+* Thu Jun 01 2017 Simone Caronni <negativo17@gmail.com> - 1:0.25.0-1
+- Update to 0.25.0.
+
 * Thu Mar 23 2017 Simone Caronni <negativo17@gmail.com> - 1:0.24.0-2
 - Rebuild for libbluray update.
 

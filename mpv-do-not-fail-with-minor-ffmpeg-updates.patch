@@ -1,7 +1,7 @@
-diff -Naur mpv-0.22.0.old/player/main.c mpv-0.22.0/player/main.c
---- mpv-0.22.0.old/player/main.c	2016-11-29 15:03:06.751829770 +0100
-+++ mpv-0.22.0/player/main.c	2016-11-29 15:04:40.258166553 +0100
-@@ -429,18 +429,6 @@
+diff -Naur mpv-0.25.0.old/player/main.c mpv-0.25.0/player/main.c
+--- mpv-0.25.0.old/player/main.c	2017-06-01 14:10:47.769763871 +0200
++++ mpv-0.25.0/player/main.c	2017-06-01 14:10:55.910911035 +0200
+@@ -438,18 +438,6 @@
  
      handle_deprecated_options(mpctx);
  
