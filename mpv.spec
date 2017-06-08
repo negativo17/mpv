@@ -5,7 +5,7 @@
 
 Name:           mpv
 Version:        0.25.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Epoch:          1
 Summary:        Movie player playing most video formats and DVDs
 License:        GPLv2+
@@ -122,6 +122,7 @@ waf configure \
     --confdir=%{_sysconfdir}/%{name} \
     --disable-build-date \
     --docdir=%{_docdir}/%{name} \
+    --enable-cplugins \
     --enable-libarchive \
     --enable-libmpv-shared \
     --enable-html-build \
@@ -186,6 +187,9 @@ fi
 %{_libdir}/pkgconfig/mpv.pc
 
 %changelog
+* Thu Jun 08 2017 Simone Caronni <negativo17@gmail.com> - 1:0.25.0-2
+- Enable C plugins.
+
 * Thu Jun 01 2017 Simone Caronni <negativo17@gmail.com> - 1:0.25.0-1
 - Update to 0.25.0.
 - Adjust epoch requirements.
