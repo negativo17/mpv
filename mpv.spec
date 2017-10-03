@@ -123,19 +123,19 @@ waf configure \
     --disable-build-date \
     --docdir=%{_docdir}/%{name} \
     --enable-cplugins \
+    --enable-dvbin \
+    --enable-encoding \
     --enable-libarchive \
     --enable-libmpv-shared \
     --enable-html-build \
     --enable-openal \
+%if 0%{?fedora}
+    --enable-pdf-build \
+%endif
     --enable-sdl2 \
-    --enable-encoding \
-    --enable-dvbin \
     --libdir=%{_libdir} \
     --mandir=%{_mandir} \
-    --prefix=%{_prefix} \
-%if 0%{?fedora}
-    --enable-pdf-build
-%endif
+    --prefix=%{_prefix}
 
 waf build %{?_smp_mflags}
 
@@ -188,8 +188,10 @@ fi
 %{_libdir}/pkgconfig/mpv.pc
 
 %changelog
-* Tue Sep 30 2017 Simone Caronni <negativo17@gmail.com> - 1:0.26.0-2
-- Enable DVB support that had been disabled by default in mpv 0.26.
+* Tue Oct 03 2017 Simone Caronni <negativo17@gmail.com> - 1:0.26.0-2
+- Enable DVB support that had been disabled by default in mpv 0.26 (thanks Jens
+  Peters).
+- Sort build requirements.
 
 * Tue Sep 12 2017 Simone Caronni <negativo17@gmail.com> - 1:0.26.0-1
 - Update to 0.26.0.
