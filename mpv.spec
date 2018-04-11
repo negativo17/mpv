@@ -4,11 +4,11 @@
 #Checking for VapourSynth filter bridge (core)      : not found any of vapoursynth-lazy, vapoursynth
 
 Name:           mpv
-Version:        0.27.0
+Version:        0.27.2
 Release:        1%{?dist}
 Epoch:          1
 Summary:        Movie player playing most video formats and DVDs
-License:        GPLv2+
+License:        GPLv2+ and LGPLv2+
 URL:            http://%{name}.io/
 
 Source0:        https://github.com/%{name}-player/%{name}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
@@ -188,6 +188,9 @@ fi
 %{_libdir}/pkgconfig/mpv.pc
 
 %changelog
+* Wed Apr 11 2018 Simone Caronni <negativo17@gmail.com> - 1:0.27.2-1
+- Update to 0.27.2.
+
 * Thu Oct 26 2017 Simone Caronni <negativo17@gmail.com> - 1:0.27.0-1
 - Update to 0.27.0.
 
