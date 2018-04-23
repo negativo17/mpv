@@ -84,6 +84,8 @@ Requires(postun): desktop-file-utils
 
 Requires:       hicolor-icon-theme
 
+Provides:       mplayer-backend
+
 %description
 Mpv is a movie player based on MPlayer and mplayer2. It supports a wide variety
 of video file formats, audio and video codecs, and subtitle types. Special
