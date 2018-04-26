@@ -4,7 +4,7 @@
 #Checking for VapourSynth filter bridge (core)      : not found any of vapoursynth-lazy, vapoursynth
 
 Name:           mpv
-Version:        0.27.2
+Version:        0.28.2
 Release:        1%{?dist}
 Epoch:          1
 Summary:        Movie player playing most video formats and DVDs
@@ -43,16 +43,18 @@ BuildRequires:  pkgconfig(gl)
 BuildRequires:  pkgconfig(jack)
 BuildRequires:  pkgconfig(lcms2)
 BuildRequires:  pkgconfig(libarchive) >= 3.0.0
-BuildRequires:  pkgconfig(libavcodec) >= 57.89.100
-BuildRequires:  pkgconfig(libavformat) >= 57.71.100
-BuildRequires:  pkgconfig(libavutil) >= 55.58.100
+BuildRequires:  pkgconfig(libavcodec) >= 58.7.100
+BuildRequires:  pkgconfig(libavfilter) >= 7.0.101
+BuildRequires:  pkgconfig(libavformat) >= 58.0.102
+BuildRequires:  pkgconfig(libavutil) >= 56.6.100
 BuildRequires:  pkgconfig(libass)
 BuildRequires:  pkgconfig(libbluray)
 BuildRequires:  pkgconfig(libcdio)
 BuildRequires:  pkgconfig(libcdio_paranoia)
 BuildRequires:  pkgconfig(libdrm)
 BuildRequires:  pkgconfig(libpulse)
-BuildRequires:  pkgconfig(libswscale) >= 4.6.100
+BuildRequires:  pkgconfig(libswresample) >= 3.0.100
+BuildRequires:  pkgconfig(libswscale) >= 5.0.101
 BuildRequires:  pkgconfig(libv4l2)
 BuildRequires:  pkgconfig(libva)
 BuildRequires:  pkgconfig(openal) >= 1.13
@@ -190,6 +192,9 @@ fi
 %{_libdir}/pkgconfig/mpv.pc
 
 %changelog
+* Thu Apr 26 2018 Simone Caronni <negativo17@gmail.com> - 1:0.28.2-1
+- Update to 0.28.2.
+
 * Wed Apr 11 2018 Simone Caronni <negativo17@gmail.com> - 1:0.27.2-1
 - Update to 0.27.2.
 

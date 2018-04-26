@@ -1,9 +1,9 @@
-diff -Naur mpv-0.25.0.old/player/main.c mpv-0.25.0/player/main.c
---- mpv-0.25.0.old/player/main.c	2017-06-01 14:10:47.769763871 +0200
-+++ mpv-0.25.0/player/main.c	2017-06-01 14:10:55.910911035 +0200
-@@ -438,18 +438,6 @@
- 
-     handle_deprecated_options(mpctx);
+diff -Naur mpv-0.28.2.old/player/main.c mpv-0.28.2/player/main.c
+--- mpv-0.28.2.old/player/main.c	2018-04-26 09:08:03.971658830 +0200
++++ mpv-0.28.2/player/main.c	2018-04-26 09:08:08.561742431 +0200
+@@ -428,18 +428,6 @@
+     if (handle_help_options(mpctx))
+         return -2;
  
 -    if (!print_libav_versions(mp_null_log, 0)) {
 -        // Using mismatched libraries can be legitimate, but even then it's
