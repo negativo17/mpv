@@ -150,15 +150,14 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 install -Dpm 644 README.md etc/input.conf etc/mpv.conf -t %{buildroot}%{_docdir}/%{name}
 
 %post
-%if 0%{?fedora} == 24 || 0%{?fedora} == 23 || 0%{?rhel} ==7
+%if 0%{?rhel} ==7
 /usr/bin/update-desktop-database &> /dev/null || :
-%endif
 /bin/touch --no-create %{_datadir}/icons/hicolor &> /dev/null || :
+%endif
 
 %postun
-%if 0%{?fedora} == 24 || 0%{?fedora} == 23 || 0%{?rhel} ==7
+%if 0%{?rhel} ==7
 /usr/bin/update-desktop-database &> /dev/null || :
-%endif
 if [ $1 -eq 0 ] ; then
     /bin/touch --no-create %{_datadir}/icons/hicolor &> /dev/null || :
     /usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &> /dev/null || :
@@ -166,10 +165,9 @@ fi
 
 %posttrans
 /usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &> /dev/null || :
+%endif
 
-%post libs -p /sbin/ldconfig
-
-%postun libs -p /sbin/ldconfig
+%ldconfig_scriptlets libs
 
 %files
 %docdir %{_docdir}/%{name}
@@ -194,6 +192,7 @@ fi
 %changelog
 * Thu Apr 26 2018 Simone Caronni <negativo17@gmail.com> - 1:0.28.2-1
 - Update to 0.28.2.
+- Update SPEC file.
 
 * Wed Apr 11 2018 Simone Caronni <negativo17@gmail.com> - 1:0.27.2-1
 - Update to 0.27.2.
