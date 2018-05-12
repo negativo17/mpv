@@ -191,7 +191,7 @@ fi
 %{_libdir}/pkgconfig/mpv.pc
 
 %changelog
-* Sat May 12 2017 Simone Caronni <negativo17@gmail.com> - 1:0.28.2-2
+* Sat May 12 2018 Simone Caronni <negativo17@gmail.com> - 1:0.28.2-2
 - Enable Vulkan support (thanks Jens Peters).
 
 * Thu Apr 26 2018 Simone Caronni <negativo17@gmail.com> - 1:0.28.2-1
