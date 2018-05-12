@@ -73,6 +73,7 @@ BuildRequires:  pkgconfig(xv)
 BuildRequires:  pkgconfig(zlib)
 
 %if 0%{?fedora}
+BuildRequires:  pkgconfig(vulkan)
 BuildRequires:  pkgconfig(wayland-client)
 BuildRequires:  pkgconfig(wayland-cursor)
 BuildRequires:  pkgconfig(wayland-egl)
@@ -190,6 +191,9 @@ fi
 %{_libdir}/pkgconfig/mpv.pc
 
 %changelog
+* Sat May 12 2017 Simone Caronni <negativo17@gmail.com> - 1:0.28.2-2
+- Enable Vulkan support (thanks Jens Peters).
+
 * Thu Apr 26 2018 Simone Caronni <negativo17@gmail.com> - 1:0.28.2-1
 - Update to 0.28.2.
 - Update SPEC file.
