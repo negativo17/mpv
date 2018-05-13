@@ -77,8 +77,8 @@ BuildRequires:  pkgconfig(vulkan)
 BuildRequires:  pkgconfig(wayland-client)
 BuildRequires:  pkgconfig(wayland-cursor)
 BuildRequires:  pkgconfig(wayland-egl)
-BuildRequires:  pkgconfig(wayland-scanner)
 BuildRequires:  pkgconfig(wayland-protocols)
+BuildRequires:  pkgconfig(wayland-scanner)
 %endif
 
 %if 0%{?fedora} || 0%{?rhel} ==7
