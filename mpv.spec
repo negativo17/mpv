@@ -5,7 +5,7 @@
 
 Name:           mpv
 Version:        0.28.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Epoch:          1
 Summary:        Movie player playing most video formats and DVDs
 License:        GPLv2+ and LGPLv2+
@@ -63,6 +63,7 @@ BuildRequires:  pkgconfig(sdl2)
 BuildRequires:  pkgconfig(smbclient)
 BuildRequires:  pkgconfig(uchardet)
 BuildRequires:  pkgconfig(vdpau)
+BuildRequires:  pkgconfig(vulkan)
 BuildRequires:  pkgconfig(x11)
 BuildRequires:  pkgconfig(xext)
 BuildRequires:  pkgconfig(xinerama)
@@ -73,7 +74,6 @@ BuildRequires:  pkgconfig(xv)
 BuildRequires:  pkgconfig(zlib)
 
 %if 0%{?fedora}
-BuildRequires:  pkgconfig(vulkan)
 BuildRequires:  pkgconfig(wayland-client)
 BuildRequires:  pkgconfig(wayland-cursor)
 BuildRequires:  pkgconfig(wayland-egl)
@@ -81,11 +81,8 @@ BuildRequires:  pkgconfig(wayland-protocols)
 BuildRequires:  pkgconfig(wayland-scanner)
 %endif
 
-%if 0%{?fedora} || 0%{?rhel} ==7
 Requires(post): desktop-file-utils
 Requires(postun): desktop-file-utils
-%endif
-
 Requires:       hicolor-icon-theme
 
 Provides:       mplayer-backend
@@ -192,7 +189,10 @@ fi
 %{_libdir}/pkgconfig/mpv.pc
 
 %changelog
-* Sat May 13 2018 Simone Caronni <negativo17@gmail.com> - 1:0.28.2-2
+* Thu May 17 2018 Simone Caronni <negativo17@gmail.com> - 1:0.28.2-3
+- Enable Vulkan also on RHEL/CentOS.
+
+* Sun May 13 2018 Simone Caronni <negativo17@gmail.com> - 1:0.28.2-2
 - Enable Vulkan support (thanks Jens Peters).
 - Enable Wayland support (thanks Jens Peters).
 
