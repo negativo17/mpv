@@ -4,8 +4,8 @@
 #Checking for VapourSynth filter bridge (core)      : not found any of vapoursynth-lazy, vapoursynth
 
 Name:           mpv
-Version:        0.28.2
-Release:        3%{?dist}
+Version:        0.29.0
+Release:        1%{?dist}
 Epoch:          1
 Summary:        Movie player playing most video formats and DVDs
 License:        GPLv2+ and LGPLv2+
@@ -13,7 +13,6 @@ URL:            http://%{name}.io/
 
 Source0:        https://github.com/%{name}-player/%{name}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 Patch0:         %{name}-config.patch
-Patch1:         %{name}-do-not-fail-with-minor-ffmpeg-updates.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  libjpeg-turbo-devel
@@ -28,57 +27,58 @@ BuildRequires:  waf
 BuildRequires:  rst2pdf
 %endif
 
-%ifarch x86_64
-BuildRequires:  nvidia-driver-devel
-BuildRequires:  cuda-devel >= 7.5
-%endif
-
-BuildRequires:  pkgconfig(alsa)
+BuildRequires:  pkgconfig(alsa) >= 1.0.18
 BuildRequires:  pkgconfig(caca) >= 0.99.beta18
-BuildRequires:  pkgconfig(dvdnav)
-BuildRequires:  pkgconfig(dvdread)
-BuildRequires:  pkgconfig(egl)
+BuildRequires:  pkgconfig(dvdnav) >= 4.2.0
+BuildRequires:  pkgconfig(dvdread) >= 4.1.0
+BuildRequires:  pkgconfig(egl) >= 9.0.0
+BuildRequires:  pkgconfig(ffnvcodec) >= 8.1.24.1
 BuildRequires:  pkgconfig(gbm)
 BuildRequires:  pkgconfig(gl)
 BuildRequires:  pkgconfig(jack)
-BuildRequires:  pkgconfig(lcms2)
+BuildRequires:  pkgconfig(lcms2) >= 2.6
 BuildRequires:  pkgconfig(libarchive) >= 3.0.0
-BuildRequires:  pkgconfig(libavcodec) >= 58.7.100
-BuildRequires:  pkgconfig(libavfilter) >= 7.0.101
-BuildRequires:  pkgconfig(libavformat) >= 58.0.102
-BuildRequires:  pkgconfig(libavutil) >= 56.6.100
-BuildRequires:  pkgconfig(libass)
-BuildRequires:  pkgconfig(libbluray)
+BuildRequires:  pkgconfig(libavcodec) >= 58.16.100
+# libavdevice should be >= 57.0.0 but we want to avoid pulling in compat-ffmpeg-devel
+BuildRequires:  pkgconfig(libavdevice) >= 58.0.0
+BuildRequires:  pkgconfig(libavfilter) >= 7.14.100
+BuildRequires:  pkgconfig(libavformat) >= 58.9.100
+BuildRequires:  pkgconfig(libavutil) >= 56.12.100
+BuildRequires:  pkgconfig(libass) >= 0.12.1
+BuildRequires:  pkgconfig(libbluray) >= 0.3.0
 BuildRequires:  pkgconfig(libcdio)
 BuildRequires:  pkgconfig(libcdio_paranoia)
 BuildRequires:  pkgconfig(libdrm)
-BuildRequires:  pkgconfig(libpulse)
+BuildRequires:  pkgconfig(libpulse) >= 1.0
 BuildRequires:  pkgconfig(libswresample) >= 3.0.100
 BuildRequires:  pkgconfig(libswscale) >= 5.0.101
 BuildRequires:  pkgconfig(libv4l2)
-BuildRequires:  pkgconfig(libva)
+BuildRequires:  pkgconfig(libva) >= 0.36.0
+BuildRequires:  pkgconfig(libva-drm) >= 0.36.0
+BuildRequires:  pkgconfig(libva-x11) >= 0.36.0
+BuildRequires:  pkgconfig(libva-wayland) >= 0.36.0
 BuildRequires:  pkgconfig(openal) >= 1.13
-BuildRequires:  pkgconfig(rubberband)
+BuildRequires:  pkgconfig(rubberband) >= 1.8.0
 BuildRequires:  pkgconfig(sdl2)
 BuildRequires:  pkgconfig(smbclient)
 BuildRequires:  pkgconfig(uchardet)
-BuildRequires:  pkgconfig(vdpau)
+BuildRequires:  pkgconfig(vdpau) >= 0.2
 BuildRequires:  pkgconfig(vulkan)
-BuildRequires:  pkgconfig(x11)
-BuildRequires:  pkgconfig(xext)
-BuildRequires:  pkgconfig(xinerama)
-BuildRequires:  pkgconfig(xkbcommon)
-BuildRequires:  pkgconfig(xrandr)
-BuildRequires:  pkgconfig(xscrnsaver)
+BuildRequires:  pkgconfig(wayland-client) >= 1.6.0
+BuildRequires:  pkgconfig(wayland-cursor) >= 1.6.0
+BuildRequires:  pkgconfig(wayland-scanner)
+BuildRequires:  pkgconfig(x11) >= 1.0.0
+BuildRequires:  pkgconfig(xext) >= 1.0.0
+BuildRequires:  pkgconfig(xinerama) >= 1.0.0
+BuildRequires:  pkgconfig(xkbcommon) >= 0.3.0
+BuildRequires:  pkgconfig(xrandr) >= 1.2.0
+BuildRequires:  pkgconfig(xscrnsaver) >= 1.0.0
 BuildRequires:  pkgconfig(xv)
 BuildRequires:  pkgconfig(zlib)
 
 %if 0%{?fedora}
-BuildRequires:  pkgconfig(wayland-client)
-BuildRequires:  pkgconfig(wayland-cursor)
-BuildRequires:  pkgconfig(wayland-egl)
-BuildRequires:  pkgconfig(wayland-protocols)
-BuildRequires:  pkgconfig(wayland-scanner)
+BuildRequires:  pkgconfig(wayland-egl) >= 9.0.0
+BuildRequires:  pkgconfig(wayland-protocols) >= 1.14
 %endif
 
 Requires(post): desktop-file-utils
@@ -113,9 +113,7 @@ Requires:       pkgconfig
 Libmpv development header files and libraries.
 
 %prep
-%setup -q
-%patch0 -p1
-%patch1 -p1
+%autosetup -p1
 
 %build
 export CFLAGS="%{optflags} -I%{_includedir}/cuda"
@@ -125,9 +123,11 @@ waf configure \
     --confdir=%{_sysconfdir}/%{name} \
     --disable-build-date \
     --docdir=%{_docdir}/%{name} \
+    --enable-cdda \
     --enable-cplugins \
     --enable-dvbin \
-    --enable-encoding \
+    --enable-dvdread \
+    --enable-dvdnav \
     --enable-libarchive \
     --enable-libmpv-shared \
     --enable-html-build \
@@ -136,6 +136,7 @@ waf configure \
     --enable-pdf-build \
 %endif
     --enable-sdl2 \
+    --enable-tv \
     --libdir=%{_libdir} \
     --mandir=%{_mandir} \
     --prefix=%{_prefix}
@@ -149,13 +150,13 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 install -Dpm 644 README.md etc/input.conf etc/mpv.conf -t %{buildroot}%{_docdir}/%{name}
 
 %post
-%if 0%{?rhel} ==7
+%if 0%{?rhel} == 7
 /usr/bin/update-desktop-database &> /dev/null || :
 /bin/touch --no-create %{_datadir}/icons/hicolor &> /dev/null || :
 %endif
 
 %postun
-%if 0%{?rhel} ==7
+%if 0%{?rhel} == 7
 /usr/bin/update-desktop-database &> /dev/null || :
 if [ $1 -eq 0 ] ; then
     /bin/touch --no-create %{_datadir}/icons/hicolor &> /dev/null || :
@@ -169,9 +170,9 @@ fi
 %ldconfig_scriptlets libs
 
 %files
+%license LICENSE.* Copyright RELEASE_NOTES
 %docdir %{_docdir}/%{name}
 %{_docdir}/%{name}
-%license LICENSE.* Copyright RELEASE_NOTES
 %{_bindir}/%{name}
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/*/apps/%{name}*.*
@@ -189,6 +190,10 @@ fi
 %{_libdir}/pkgconfig/mpv.pc
 
 %changelog
+* Tue Jul 24 2018 Simone Caronni <negativo17@gmail.com> - 1:0.29.0-1
+- Update to 0.29.0.
+- Update SPEC file.
+
 * Thu May 17 2018 Simone Caronni <negativo17@gmail.com> - 1:0.28.2-3
 - Enable Vulkan also on RHEL/CentOS.
 
