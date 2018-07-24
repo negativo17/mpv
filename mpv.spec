@@ -76,7 +76,7 @@ BuildRequires:  pkgconfig(xscrnsaver) >= 1.0.0
 BuildRequires:  pkgconfig(xv)
 BuildRequires:  pkgconfig(zlib)
 
-%if 0%{?fedora}
+%if 0%{?fedora} >= 28
 BuildRequires:  pkgconfig(wayland-egl) >= 9.0.0
 BuildRequires:  pkgconfig(wayland-protocols) >= 1.14
 %endif
