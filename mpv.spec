@@ -5,7 +5,7 @@
 
 Name:           mpv
 Version:        0.29.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Epoch:          1
 Summary:        Movie player playing most video formats and DVDs
 License:        GPLv2+ and LGPLv2+
@@ -14,6 +14,7 @@ URL:            http://%{name}.io/
 Source0:        https://github.com/%{name}-player/%{name}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 Patch0:         %{name}-config.patch
 
+BuildRequires:  gcc
 BuildRequires:  desktop-file-utils
 BuildRequires:  libjpeg-turbo-devel
 BuildRequires:  luajit-devel
@@ -190,6 +191,9 @@ fi
 %{_libdir}/pkgconfig/mpv.pc
 
 %changelog
+* Thu Sep 27 2018 Simone Caronni <negativo17@gmail.com> - 1:0.29.0-2
+- Add GCC build requirement.
+
 * Tue Jul 24 2018 Simone Caronni <negativo17@gmail.com> - 1:0.29.0-1
 - Update to 0.29.0.
 - Update SPEC file.
