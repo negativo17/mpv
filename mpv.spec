@@ -5,7 +5,7 @@
 
 Name:           mpv
 Version:        0.29.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Epoch:          1
 Summary:        Movie player playing most video formats and DVDs
 License:        GPLv2+ and LGPLv2+
@@ -21,11 +21,12 @@ BuildRequires:  luajit-devel
 BuildRequires:  perl(Encode)
 BuildRequires:  perl(Math::BigInt)
 BuildRequires:  perl(Math::BigRat)
-BuildRequires:  python-docutils
 BuildRequires:  waf
 
-%if 0%{?fedora}
-BuildRequires:  rst2pdf
+%if 0%{?fedora} > 28
+BuildRequires:  python3-docutils
+%else
+BuildRequires:  python2-docutils
 %endif
 
 BuildRequires:  pkgconfig(alsa) >= 1.0.18
@@ -133,9 +134,6 @@ waf configure \
     --enable-libmpv-shared \
     --enable-html-build \
     --enable-openal \
-%if 0%{?fedora}
-    --enable-pdf-build \
-%endif
     --enable-sdl2 \
     --enable-tv \
     --libdir=%{_libdir} \
@@ -191,6 +189,10 @@ fi
 %{_libdir}/pkgconfig/mpv.pc
 
 %changelog
+* Fri Sep 28 2018 Simone Caronni <negativo17@gmail.com> - 1:0.29.0-3
+- Disable PDF doc generation, it is not supported on RHEL and does not yet work
+  with Python 3 (Fedora 29+).
+
 * Thu Sep 27 2018 Simone Caronni <negativo17@gmail.com> - 1:0.29.0-2
 - Add GCC build requirement.
 
