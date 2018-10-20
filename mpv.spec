@@ -4,8 +4,8 @@
 #Checking for VapourSynth filter bridge (core)      : not found any of vapoursynth-lazy, vapoursynth
 
 Name:           mpv
-Version:        0.29.0
-Release:        3%{?dist}
+Version:        0.29.1
+Release:        1%{?dist}
 Epoch:          1
 Summary:        Movie player playing most video formats and DVDs
 License:        GPLv2+ and LGPLv2+
@@ -189,6 +189,9 @@ fi
 %{_libdir}/pkgconfig/mpv.pc
 
 %changelog
+* Sat Oct 20 2018 Simone Caronni <negativo17@gmail.com> - 1:0.29.1-1
+- Update to 0.29.1.
+
 * Fri Sep 28 2018 Simone Caronni <negativo17@gmail.com> - 1:0.29.0-3
 - Disable PDF doc generation, it is not supported on RHEL and does not yet work
   with Python 3 (Fedora 29+).
