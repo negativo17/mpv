@@ -6,7 +6,7 @@
 Name:           mpv
 Version:        0.29.1
 Release:        1%{?dist}
-Epoch:          1
+Epoch:          2
 Summary:        Movie player playing most video formats and DVDs
 License:        GPLv2+ and LGPLv2+
 URL:            http://%{name}.io/
@@ -52,6 +52,7 @@ BuildRequires:  pkgconfig(libcdio)
 BuildRequires:  pkgconfig(libcdio_paranoia)
 BuildRequires:  pkgconfig(libdrm)
 BuildRequires:  pkgconfig(libpulse) >= 1.0
+BuildRequires:  pkgconfig(libshaderc)
 BuildRequires:  pkgconfig(libswresample) >= 3.0.100
 BuildRequires:  pkgconfig(libswscale) >= 5.0.101
 BuildRequires:  pkgconfig(libv4l2)
@@ -189,6 +190,10 @@ fi
 %{_libdir}/pkgconfig/mpv.pc
 
 %changelog
+* Mon Oct 22 2018 Simone Caronni <negativo17@gmail.com> - 1:0.29.1-2
+- Add libshaderc dependency for Vulkan support with NVidia 410 drivers
+  (thanks Jens Peters).
+
 * Sat Oct 20 2018 Simone Caronni <negativo17@gmail.com> - 1:0.29.1-1
 - Update to 0.29.1.
 
