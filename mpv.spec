@@ -5,7 +5,7 @@
 
 Name:           mpv
 Version:        0.29.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Epoch:          1
 Summary:        Movie player playing most video formats and DVDs
 License:        GPLv2+ and LGPLv2+
@@ -27,6 +27,10 @@ BuildRequires:  waf
 BuildRequires:  python3-docutils
 %else
 BuildRequires:  python2-docutils
+%endif
+
+%if 0%{?fedora} >= 28
+BuildRequires:  libshaderc-devel
 %endif
 
 BuildRequires:  pkgconfig(alsa) >= 1.0.18
@@ -189,6 +193,10 @@ fi
 %{_libdir}/pkgconfig/mpv.pc
 
 %changelog
+* Wed Oct 31 2018 Simone Caronni <negativo17@gmail.com> - 1:0.29.1-2
+- Add libshaderc dependency for Vulkan support with NVidia 410 drivers (thanks
+  Jens Peters).
+
 * Sat Oct 20 2018 Simone Caronni <negativo17@gmail.com> - 1:0.29.1-1
 - Update to 0.29.1.
 
