@@ -5,7 +5,7 @@
 
 Name:           mpv
 Version:        0.29.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Epoch:          1
 Summary:        Movie player playing most video formats and DVDs
 License:        GPLv2+ and LGPLv2+
@@ -193,6 +193,9 @@ fi
 %{_libdir}/pkgconfig/mpv.pc
 
 %changelog
+* Tue Nov 13 2018 Simone Caronni <negativo17@gmail.com> - 1:0.29.1-3
+- Rebuild for FFMpeg update.
+
 * Wed Oct 31 2018 Simone Caronni <negativo17@gmail.com> - 1:0.29.1-2
 - Add libshaderc dependency for Vulkan support with NVidia 410 drivers (thanks
   Jens Peters).
