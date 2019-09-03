@@ -5,7 +5,7 @@
 
 Name:           mpv
 Version:        0.29.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Epoch:          1
 Summary:        Movie player playing most video formats and DVDs
 License:        GPLv2+ and LGPLv2+
@@ -23,14 +23,11 @@ BuildRequires:  perl(Math::BigInt)
 BuildRequires:  perl(Math::BigRat)
 BuildRequires:  waf
 
-%if 0%{?fedora} > 28
+%if 0%{?fedora} || 0%{?rhel} >= 8
+BuildRequires:  libshaderc-devel
 BuildRequires:  python3-docutils
 %else
 BuildRequires:  python2-docutils
-%endif
-
-%if 0%{?fedora} >= 28
-BuildRequires:  libshaderc-devel
 %endif
 
 BuildRequires:  pkgconfig(alsa) >= 1.0.18
@@ -82,7 +79,7 @@ BuildRequires:  pkgconfig(xscrnsaver) >= 1.0.0
 BuildRequires:  pkgconfig(xv)
 BuildRequires:  pkgconfig(zlib)
 
-%if 0%{?fedora} >= 28
+%if 0%{?fedora} || 0%{?rhel} >= 8
 BuildRequires:  pkgconfig(wayland-egl) >= 9.0.0
 BuildRequires:  pkgconfig(wayland-protocols) >= 1.14
 %endif
@@ -193,6 +190,9 @@ fi
 %{_libdir}/pkgconfig/mpv.pc
 
 %changelog
+* Tue Sep 03 2019 Simone Caronni <negativo17@gmail.com> - 1:0.29.1-6
+- Rebuild for FFMpeg update.
+
 * Sun Mar 24 2019 Simone Caronni <negativo17@gmail.com> - 1:0.29.1-5
 - Rebuild for FFMpeg update.
 
