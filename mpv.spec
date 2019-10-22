@@ -5,7 +5,7 @@
 
 Name:           mpv
 Version:        0.29.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Epoch:          1
 Summary:        Movie player playing most video formats and DVDs
 License:        GPLv2+ and LGPLv2+
@@ -190,6 +190,9 @@ fi
 %{_libdir}/pkgconfig/mpv.pc
 
 %changelog
+* Tue Oct 22 2019 Simone Caronni <negativo17@gmail.com> - 1:0.29.1-7
+- Rebuild for updated dependencies.
+
 * Tue Sep 03 2019 Simone Caronni <negativo17@gmail.com> - 1:0.29.1-6
 - Rebuild for FFMpeg update.
 
