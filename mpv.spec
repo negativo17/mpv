@@ -4,8 +4,8 @@
 #Checking for VapourSynth filter bridge (core)      : not found any of vapoursynth-lazy, vapoursynth
 
 Name:           mpv
-Version:        0.29.1
-Release:        7%{?dist}
+Version:        0.31.0
+Release:        1%{?dist}
 Epoch:          1
 Summary:        Movie player playing most video formats and DVDs
 License:        GPLv2+ and LGPLv2+
@@ -42,7 +42,6 @@ BuildRequires:  pkgconfig(jack)
 BuildRequires:  pkgconfig(lcms2) >= 2.6
 BuildRequires:  pkgconfig(libarchive) >= 3.0.0
 BuildRequires:  pkgconfig(libavcodec) >= 58.16.100
-# libavdevice should be >= 57.0.0 but we want to avoid pulling in compat-ffmpeg-devel
 BuildRequires:  pkgconfig(libavdevice) >= 58.0.0
 BuildRequires:  pkgconfig(libavfilter) >= 7.14.100
 BuildRequires:  pkgconfig(libavformat) >= 58.9.100
@@ -77,9 +76,12 @@ BuildRequires:  pkgconfig(xkbcommon) >= 0.3.0
 BuildRequires:  pkgconfig(xrandr) >= 1.2.0
 BuildRequires:  pkgconfig(xscrnsaver) >= 1.0.0
 BuildRequires:  pkgconfig(xv)
+BuildRequires:  pkgconfig(zimg) >= 2.9
 BuildRequires:  pkgconfig(zlib)
 
 %if 0%{?fedora} || 0%{?rhel} >= 8
+BuildRequires:  pkgconfig(libplacebo) >= 1.18.0
+BuildRequires:  pkgconfig(mujs) >= 1.0.0
 BuildRequires:  pkgconfig(wayland-egl) >= 9.0.0
 BuildRequires:  pkgconfig(wayland-protocols) >= 1.14
 %endif
@@ -115,6 +117,15 @@ Requires:       pkgconfig
 %description    libs-devel
 Libmpv development header files and libraries.
 
+
+%package zsh
+Summary:        zsh completion functions for MPV
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       zsh
+
+%description zsh
+zsh completion functions for MPV.
+
 %prep
 %autosetup -p1
 
@@ -129,14 +140,12 @@ waf configure \
     --enable-cdda \
     --enable-cplugins \
     --enable-dvbin \
-    --enable-dvdread \
     --enable-dvdnav \
     --enable-libarchive \
     --enable-libmpv-shared \
     --enable-html-build \
     --enable-openal \
     --enable-sdl2 \
-    --enable-tv \
     --libdir=%{_libdir} \
     --mandir=%{_mandir} \
     --prefix=%{_prefix}
@@ -189,7 +198,13 @@ fi
 %{_libdir}/libmpv.so
 %{_libdir}/pkgconfig/mpv.pc
 
+%files zsh
+%{_datadir}/zsh/site-functions/_%{name}
+
 %changelog
+* Mon Jan 13 2020 Simone Caronni <negativo17@gmail.com> - 1:0.31.0-1
+- Update to 0.31.0.
+
 * Tue Oct 22 2019 Simone Caronni <negativo17@gmail.com> - 1:0.29.1-7
 - Rebuild for updated dependencies.
 
