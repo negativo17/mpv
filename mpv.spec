@@ -1,11 +1,6 @@
-#Todo
-#Checking for VapourSynth filter bridge (Python)    : no ('vapoursynth >= 24 vapoursynth-script >= 23' not found)
-#Checking for VapourSynth filter bridge (Lazy Lua)  : no ('vapoursynth >= 24' not found)
-#Checking for VapourSynth filter bridge (core)      : not found any of vapoursynth-lazy, vapoursynth
-
 Name:           mpv
 Version:        0.31.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Epoch:          1
 Summary:        Movie player playing most video formats and DVDs
 License:        GPLv2+ and LGPLv2+
@@ -26,6 +21,8 @@ BuildRequires:  waf
 %if 0%{?fedora} || 0%{?rhel} >= 8
 BuildRequires:  libshaderc-devel
 BuildRequires:  python3-docutils
+BuildRequires:  pkgconfig(vapoursynth) >= 24
+BuildRequires:  pkgconfig(vapoursynth-script) >= 23
 %else
 BuildRequires:  python2-docutils
 %endif
@@ -202,6 +199,9 @@ fi
 %{_datadir}/zsh/site-functions/_%{name}
 
 %changelog
+* Thu Jan 16 2020 Simone Caronni <negativo17@gmail.com> - 1:0.31.0-2
+- Enable vapoursynth.
+
 * Mon Jan 13 2020 Simone Caronni <negativo17@gmail.com> - 1:0.31.0-1
 - Update to 0.31.0.
 
