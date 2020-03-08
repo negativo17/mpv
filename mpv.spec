@@ -83,6 +83,7 @@ BuildRequires:  pkgconfig(wayland-egl) >= 9.0.0
 BuildRequires:  pkgconfig(wayland-protocols) >= 1.14
 %endif
 
+Requires:       bash-completion
 Requires(post): desktop-file-utils
 Requires(postun): desktop-file-utils
 Requires:       hicolor-icon-theme
@@ -181,6 +182,7 @@ fi
 %{_docdir}/%{name}
 %{_bindir}/%{name}
 %{_datadir}/applications/%{name}.desktop
+%{_datadir}/bash-completion/completions/%{name}
 %{_datadir}/icons/hicolor/*/apps/%{name}*.*
 %{_mandir}/man1/%{name}.*
 %dir %{_sysconfdir}/%{name}
