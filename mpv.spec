@@ -1,6 +1,6 @@
 Name:           mpv
-Version:        0.31.0
-Release:        2%{?dist}
+Version:        0.32.0
+Release:        1%{?dist}
 Epoch:          1
 Summary:        Movie player playing most video formats and DVDs
 License:        GPLv2+ and LGPLv2+
@@ -199,6 +199,9 @@ fi
 %{_datadir}/zsh/site-functions/_%{name}
 
 %changelog
+* Sun Mar 08 2020 Simone Caronni <negativo17@gmail.com> - 1:0.32.0-1
+- Update to 0.32.0.
+
 * Thu Jan 16 2020 Simone Caronni <negativo17@gmail.com> - 1:0.31.0-2
 - Enable vapoursynth.
 
