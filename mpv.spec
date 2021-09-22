@@ -1,6 +1,6 @@
 Name:           mpv
 Version:        0.33.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Epoch:          1
 Summary:        Movie player playing most video formats and DVDs
 License:        GPLv2+ and LGPLv2+
@@ -130,7 +130,6 @@ waf configure \
     --docdir=%{_docdir}/%{name} \
     --enable-cdda \
     --enable-cplugins \
-    --enable-dvbin \
     --enable-dvdnav \
     --enable-gl-x11 \
     --enable-libarchive \
@@ -175,6 +174,9 @@ install -Dpm 644 README.md etc/input.conf etc/mpv.conf -t %{buildroot}%{_docdir}
 %{_datadir}/zsh/site-functions/_%{name}
 
 %changelog
+* Wed Sep 22 2021 Fabio Valentini <decathorpe@gmail.com> - 1:0.33.1-4
+- Disable DVB support to fix building against linux 5.14 headers.
+
 * Tue Jul 27 2021 Simone Caronni <negativo17@gmail.com> - 1:0.33.1-3
 - Rebuild for updated dependencies.
 
