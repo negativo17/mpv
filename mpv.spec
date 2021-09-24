@@ -1,6 +1,6 @@
 Name:           mpv
 Version:        0.33.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Epoch:          1
 Summary:        Movie player playing most video formats and DVDs
 License:        GPLv2+ and LGPLv2+
@@ -9,6 +9,7 @@ URL:            http://%{name}.io/
 Source0:        https://github.com/%{name}-player/%{name}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 Patch0:         %{name}-config.patch
 Patch1:         https://github.com/mpv-player/mpv/commit/7c4465cefb27d4e0d07535d368febdf77b579566.patch
+Patch2:         https://patch-diff.githubusercontent.com/raw/mpv-player/mpv/pull/9234.patch
 
 BuildRequires:  gcc
 BuildRequires:  desktop-file-utils
@@ -175,6 +176,9 @@ install -Dpm 644 README.md etc/input.conf etc/mpv.conf -t %{buildroot}%{_docdir}
 %{_datadir}/zsh/site-functions/_%{name}
 
 %changelog
+* Fri Sep 24 2021 Simone Caronni <negativo17@gmail.com> - 1:0.33.1-4
+- Add patch from upstream to fix DVB build with kernel 5.14+.
+
 * Tue Jul 27 2021 Simone Caronni <negativo17@gmail.com> - 1:0.33.1-3
 - Rebuild for updated dependencies.
 
