@@ -1,5 +1,5 @@
 Name:           mpv
-Version:        0.34.0
+Version:        0.34.1
 Release:        1%{?dist}
 Epoch:          1
 Summary:        Movie player playing most video formats and DVDs
@@ -7,7 +7,6 @@ License:        GPLv2+ and LGPLv2+
 URL:            http://%{name}.io/
 
 Source0:        https://github.com/%{name}-player/%{name}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
-Patch0:         %{name}-config.patch
 
 BuildRequires:  gcc
 BuildRequires:  desktop-file-utils
@@ -174,6 +173,9 @@ install -Dpm 644 README.md etc/input.conf etc/mpv.conf -t %{buildroot}%{_docdir}
 %{_datadir}/zsh/site-functions/_%{name}
 
 %changelog
+* Tue Feb 15 2022 Simone Caronni <negativo17@gmail.com> - 1:0.34.1-1
+- Update to 0.34.1.
+
 * Tue Nov 02 2021 Simone Caronni <negativo17@gmail.com> - 1:0.34.0-1
 - Update to 0.34.0.
 
