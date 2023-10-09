@@ -2,8 +2,8 @@
 # - sixel support
 
 Name:           mpv
-Version:        0.35.1
-Release:        2%{?dist}
+Version:        0.36.0
+Release:        1%{?dist}
 Epoch:          1
 Summary:        Movie player playing most video formats and DVDs
 License:        GPLv2+ and LGPLv2+
@@ -29,34 +29,35 @@ BuildRequires:  pkgconfig(caca) >= 0.99.beta18
 BuildRequires:  pkgconfig(dvdnav) >= 4.2.0
 BuildRequires:  pkgconfig(dvdread) >= 4.1.0
 BuildRequires:  pkgconfig(egl) >= 1.5
-BuildRequires:  pkgconfig(ffnvcodec) >= 8.2.15.7
+BuildRequires:  pkgconfig(ffnvcodec) >= 11.1.5.1
 BuildRequires:  pkgconfig(gbm) >= 17.1.0
 BuildRequires:  pkgconfig(gl)
 BuildRequires:  pkgconfig(jack)
 BuildRequires:  pkgconfig(lcms2) >= 2.6
 BuildRequires:  pkgconfig(libarchive) >= 3.4.0
-BuildRequires:  pkgconfig(libavcodec) >= 58.12.100
-BuildRequires:  pkgconfig(libavdevice) >= 58.0.0
-BuildRequires:  pkgconfig(libavfilter) >= 7.14.100
+BuildRequires:  pkgconfig(libavcodec) >= 59.37.100
+BuildRequires:  pkgconfig(libavdevice) >= 59.7.100
+BuildRequires:  pkgconfig(libavfilter) >= 8.44.100
 BuildRequires:  pkgconfig(libavformat) >= 59.27.100
-BuildRequires:  pkgconfig(libavutil) >= 57.24.100
+BuildRequires:  pkgconfig(libavutil) >= 57.28.100
 BuildRequires:  pkgconfig(libass) >= 0.12.2
 BuildRequires:  pkgconfig(libbluray) >= 0.3.0
 BuildRequires:  pkgconfig(libcdio)
 BuildRequires:  pkgconfig(libcdio_paranoia)
-BuildRequires:  pkgconfig(libdrm)
+BuildRequires:  pkgconfig(libdrm) >= 2.4.75
 BuildRequires:  pkgconfig(libjpeg)
-BuildRequires:  pkgconfig(libpipewire-0.3) >= 0.3.19
+BuildRequires:  pkgconfig(libpipewire-0.3) >= 0.3.48
 BuildRequires:  pkgconfig(libplacebo) >= 4.157.0
 BuildRequires:  pkgconfig(libpulse) >= 1.0
 #BuildRequires:  pkgconfig(libsixel) >= 1.5
-BuildRequires:  pkgconfig(libswresample) >= 3.0.100
-BuildRequires:  pkgconfig(libswscale) >= 5.0.101
+BuildRequires:  pkgconfig(libswresample) >= 4.7.100
+BuildRequires:  pkgconfig(libswscale) >= 6.7.100
 BuildRequires:  pkgconfig(libv4l2)
 BuildRequires:  pkgconfig(libva) >= 1.1.0
 BuildRequires:  pkgconfig(libva-drm) >= 1.1.0
 BuildRequires:  pkgconfig(libva-x11) >= 1.1.0
 BuildRequires:  pkgconfig(libva-wayland) >= 1.1.0
+BuildRequires:  pkgconfig(lua-5.1)
 BuildRequires:  pkgconfig(openal) >= 1.13
 BuildRequires:  pkgconfig(rubberband) >= 1.8.0
 BuildRequires:  pkgconfig(sdl2)
@@ -68,8 +69,9 @@ BuildRequires:  pkgconfig(vapoursynth) >= 24
 BuildRequires:  pkgconfig(vapoursynth-script) >= 23
 BuildRequires:  pkgconfig(vdpau) >= 0.2
 BuildRequires:  pkgconfig(vulkan)
-BuildRequires:  pkgconfig(wayland-client) >= 1.15.0
-BuildRequires:  pkgconfig(wayland-cursor) >= 1.15.0
+BuildRequires:  pkgconfig(wayland-client) >= 1.20.0
+BuildRequires:  pkgconfig(wayland-cursor) >= 1.20.0
+BuildRequires:  pkgconfig(wayland-protocols) >= 1.25
 BuildRequires:  pkgconfig(wayland-scanner)
 BuildRequires:  pkgconfig(x11) >= 1.0.0
 BuildRequires:  pkgconfig(xext) >= 1.0.0
@@ -180,6 +182,7 @@ export CCFLAGS="%{optflags} -I%{_includedir}/cuda"
   -D libbluray=enabled \
   -D libmpv=true \
   -D libplacebo=enabled \
+  -D libplacebo-next=disabled \
   -D lua=enabled \
   -D macos-10-11-features=disabled \
   -D macos-10-12-2-features=disabled \
@@ -216,6 +219,7 @@ export CCFLAGS="%{optflags} -I%{_includedir}/cuda"
   -D vdpau=enabled \
   -D videotoolbox-gl=disabled \
   -D vulkan=enabled \
+  -D vulkan-interop=disabled \
   -D wasapi=disabled \
   -D wayland=enabled \
   -D win32-internal-pthreads=disabled \
@@ -259,6 +263,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_datadir}/zsh/site-functions/_%{name}
 
 %changelog
+* Sun Oct 08 2023 Simone Caronni <negativo17@gmail.com> - 1:0.36.0-1
+- Update to 0.36.0.
+
 * Tue Apr 11 2023 Simone Caronni <negativo17@gmail.com> - 1:0.35.1-2
 - Rebuild for updated dependencies.
 
