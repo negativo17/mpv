@@ -3,7 +3,7 @@
 
 Name:           mpv
 Version:        0.36.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Epoch:          1
 Summary:        Movie player playing most video formats and DVDs
 License:        GPLv2+ and LGPLv2+
@@ -109,14 +109,14 @@ Obsoletes:      libmpv < %{?epoch:%{epoch}:}%{version}-%{release}
 %description    libs
 This package contains the dynamic library libmpv, which provides access to Mpv.
 
-%package        libs-devel
+%package        devel
 Summary:        Development package for libmpv
 Requires:       mpv-libs%{_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
-Provides:       libmpv-devel = %{?epoch:%{epoch}:}%{version}-%{release}
-Obsoletes:      libmpv-devel < %{?epoch:%{epoch}:}%{version}-%{release}
+Provides:       mpv-libs-devel = %{?epoch:%{epoch}:}%{version}-%{release}
+Obsoletes:      mpv-libs-devel < %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       pkgconfig
 
-%description    libs-devel
+%description    devel
 Libmpv development header files and libraries.
 
 %package zsh
@@ -254,7 +254,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %license LICENSE.* Copyright
 %{_libdir}/libmpv.so.*
 
-%files libs-devel
+%files devel
 %{_includedir}/%{name}
 %{_libdir}/libmpv.so
 %{_libdir}/pkgconfig/mpv.pc
@@ -263,6 +263,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_datadir}/zsh/site-functions/_%{name}
 
 %changelog
+* Wed Feb 07 2024 Simone Caronni <negativo17@gmail.com> - 1:0.36.0-2
+- Rename libs-devel subpackage to devel.
+
 * Sun Oct 08 2023 Simone Caronni <negativo17@gmail.com> - 1:0.36.0-1
 - Update to 0.36.0.
 
