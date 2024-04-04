@@ -1,9 +1,6 @@
-# Todo:
-# - sixel support
-
 Name:           mpv
-Version:        0.36.0
-Release:        2%{?dist}
+Version:        0.37.0
+Release:        1%{?dist}
 Epoch:          1
 Summary:        Movie player playing most video formats and DVDs
 License:        GPLv2+ and LGPLv2+
@@ -20,9 +17,10 @@ BuildRequires:  libshaderc-devel
 # Required by xpresent:
 BuildRequires:  libXfixes-devel
 BuildRequires:  luajit-devel
-BuildRequires:  meson >= 0.60.3
+BuildRequires:  meson >= 0.62.0
 BuildRequires:  python3-docutils
 BuildRequires:  rst2pdf
+BuildRequires:  vulkan-headers >= 1.3.238
 
 BuildRequires:  pkgconfig(alsa) >= 1.0.18
 BuildRequires:  pkgconfig(caca) >= 0.99.beta18
@@ -42,14 +40,14 @@ BuildRequires:  pkgconfig(libavformat) >= 60.3.100
 BuildRequires:  pkgconfig(libavutil) >= 58.2.100
 BuildRequires:  pkgconfig(libass) >= 0.12.2
 BuildRequires:  pkgconfig(libbluray) >= 0.3.0
-BuildRequires:  pkgconfig(libcdio)
+BuildRequires:  pkgconfig(libcdio) >= 0.90
 BuildRequires:  pkgconfig(libcdio_paranoia)
-BuildRequires:  pkgconfig(libdrm) >= 2.4.75
+BuildRequires:  pkgconfig(libdrm) >= 2.4.105
 BuildRequires:  pkgconfig(libjpeg)
 BuildRequires:  pkgconfig(libpipewire-0.3) >= 0.3.48
-BuildRequires:  pkgconfig(libplacebo) >= 5.264.0
+BuildRequires:  pkgconfig(libplacebo) >= 6.338.0
 BuildRequires:  pkgconfig(libpulse) >= 1.0
-#BuildRequires:  pkgconfig(libsixel) >= 1.5
+BuildRequires:  pkgconfig(libsixel) >= 1.5
 BuildRequires:  pkgconfig(libswresample) >= 4.10.100
 BuildRequires:  pkgconfig(libswscale) >= 7.1.100
 BuildRequires:  pkgconfig(libv4l2)
@@ -58,17 +56,16 @@ BuildRequires:  pkgconfig(libva-drm) >= 1.1.0
 BuildRequires:  pkgconfig(libva-x11) >= 1.1.0
 BuildRequires:  pkgconfig(libva-wayland) >= 1.1.0
 BuildRequires:  pkgconfig(lua-5.1)
+BuildRequires:  pkgconfig(mujs) >= 1.0.0
 BuildRequires:  pkgconfig(openal) >= 1.13
-BuildRequires:  pkgconfig(rubberband) >= 1.8.0
+BuildRequires:  pkgconfig(rubberband) >= 3.0.0
 BuildRequires:  pkgconfig(sdl2)
 BuildRequires:  pkgconfig(shaderc)
-BuildRequires:  pkgconfig(smbclient)
-#BuildRequires:  pkgconfig(spirv-cross-c-shared)
 BuildRequires:  pkgconfig(uchardet)
-BuildRequires:  pkgconfig(vapoursynth) >= 24
-BuildRequires:  pkgconfig(vapoursynth-script) >= 23
+BuildRequires:  pkgconfig(vapoursynth) >= 26
+BuildRequires:  pkgconfig(vapoursynth-script) >= 26
 BuildRequires:  pkgconfig(vdpau) >= 0.2
-BuildRequires:  pkgconfig(vulkan)
+BuildRequires:  pkgconfig(vulkan) >= 1.1.70
 BuildRequires:  pkgconfig(wayland-client) >= 1.20.0
 BuildRequires:  pkgconfig(wayland-cursor) >= 1.20.0
 BuildRequires:  pkgconfig(wayland-protocols) >= 1.25
@@ -78,19 +75,18 @@ BuildRequires:  pkgconfig(xext) >= 1.0.0
 BuildRequires:  pkgconfig(xinerama) >= 1.0.0
 BuildRequires:  pkgconfig(xkbcommon) >= 0.3.0
 BuildRequires:  pkgconfig(xpresent) >= 1.0.0
-BuildRequires:  pkgconfig(xrandr) >= 1.2.0
+BuildRequires:  pkgconfig(xrandr) >= 1.4.0
 BuildRequires:  pkgconfig(xscrnsaver) >= 1.0.0
 BuildRequires:  pkgconfig(xv)
-BuildRequires:  pkgconfig(zimg) >= 2.9
+BuildRequires:  pkgconfig(zimg) >= 3.0.5
 BuildRequires:  pkgconfig(zlib)
 BuildRequires:  pkgconfig(mujs) >= 1.0.0
 BuildRequires:  pkgconfig(wayland-egl) >= 9.0.0
-BuildRequires:  pkgconfig(wayland-protocols) >= 1.15
 
-Requires:       bash-completion
-Requires(post): desktop-file-utils
-Requires(postun): desktop-file-utils
-Requires:       hicolor-icon-theme
+Requires:           bash-completion
+Requires(post):     desktop-file-utils
+Requires(postun):   desktop-file-utils
+Requires:           hicolor-icon-theme
 
 Provides:       mplayer-backend
 
@@ -152,6 +148,7 @@ export CCFLAGS="%{optflags} -I%{_includedir}/cuda"
   -D d3d-hwaccel=disabled \
   -D d3d9-hwaccel=disabled \
   -D direct3d=disabled \
+  -D dmabuf-wayland=enabled \
   -D drm=enabled \
   -D dvbin=enabled \
   -D dvdnav=enabled \
@@ -181,12 +178,7 @@ export CCFLAGS="%{optflags} -I%{_includedir}/cuda"
   -D libavdevice=enabled \
   -D libbluray=enabled \
   -D libmpv=true \
-  -D libplacebo=enabled \
-  -D libplacebo-next=enabled \
   -D lua=enabled \
-  -D macos-10-11-features=disabled \
-  -D macos-10-12-2-features=disabled \
-  -D macos-10-14-features=disabled \
   -D macos-cocoa-cb=disabled \
   -D macos-media-player=disabled \
   -D macos-touchbar=disabled \
@@ -196,6 +188,7 @@ export CCFLAGS="%{optflags} -I%{_includedir}/cuda"
   -D oss-audio=disabled \
   -D pdf-build=enabled \
   -D pipewire=enabled \
+  -D plain-gl=enabled \
   -D pulse=enabled \
   -D rpi-mmal=disabled \
   -D rubberband=enabled \
@@ -204,7 +197,7 @@ export CCFLAGS="%{optflags} -I%{_includedir}/cuda"
   -D sdl2=enabled \
   -D sdl2-video=enabled \
   -D shaderc=enabled \
-  -D sixel=disabled \
+  -D sixel=enabled \
   -D sndio=disabled \
   -D spirv-cross=disabled \
   -D swift-build=disabled \
@@ -213,16 +206,17 @@ export CCFLAGS="%{optflags} -I%{_includedir}/cuda"
   -D vaapi=enabled \
   -D vaapi-wayland=enabled \
   -D vaapi-x11=enabled \
-  -D vaapi-x-egl=enabled \
   -D vapoursynth=enabled \
   -D vdpau-gl-x11=enabled \
   -D vdpau=enabled \
+  -D vector=enabled \
   -D videotoolbox-gl=disabled \
+  -D videotoolbox-pl=disabled \
   -D vulkan=enabled \
-  -D vulkan-interop=disabled \
+  -D vulkan-interop=enabled \
   -D wasapi=disabled \
   -D wayland=enabled \
-  -D win32-internal-pthreads=disabled \
+  -D win32-threads=disabled \
   -D x11=enabled \
   -D xv=enabled \
   -D zimg=enabled \
@@ -263,6 +257,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_datadir}/zsh/site-functions/_%{name}
 
 %changelog
+* Thu Apr 04 2024 Simone Caronni <negativo17@gmail.com> - 1:0.37.0-1
+- Update to 0.37.0.
+
 * Wed Feb 07 2024 Simone Caronni <negativo17@gmail.com> - 1:0.36.0-2
 - Rename libs-devel subpackage to devel.
 
