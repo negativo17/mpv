@@ -1,9 +1,6 @@
-# Todo:
-# - sixel support
-
 Name:           mpv
 Version:        0.36.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Epoch:          1
 Summary:        Movie player playing most video formats and DVDs
 License:        GPLv2+ and LGPLv2+
@@ -35,11 +32,11 @@ BuildRequires:  pkgconfig(gl)
 BuildRequires:  pkgconfig(jack)
 BuildRequires:  pkgconfig(lcms2) >= 2.6
 BuildRequires:  pkgconfig(libarchive) >= 3.4.0
-BuildRequires:  pkgconfig(libavcodec) >= 60.3.100
-BuildRequires:  pkgconfig(libavdevice) >= 60.1.100
-BuildRequires:  pkgconfig(libavfilter) >= 9.3.100
-BuildRequires:  pkgconfig(libavformat) >= 60.3.100
-BuildRequires:  pkgconfig(libavutil) >= 58.2.100
+BuildRequires:  pkgconfig(libavcodec) >= 59.27.100
+BuildRequires:  pkgconfig(libavdevice) >= 57.24.100
+BuildRequires:  pkgconfig(libavfilter) >= 7.110.100
+BuildRequires:  pkgconfig(libavformat) >= 59.24.100
+BuildRequires:  pkgconfig(libavutil) >= 58.11.100
 BuildRequires:  pkgconfig(libass) >= 0.12.2
 BuildRequires:  pkgconfig(libbluray) >= 0.3.0
 BuildRequires:  pkgconfig(libcdio)
@@ -49,9 +46,9 @@ BuildRequires:  pkgconfig(libjpeg)
 BuildRequires:  pkgconfig(libpipewire-0.3) >= 0.3.48
 BuildRequires:  pkgconfig(libplacebo) >= 5.264.0
 BuildRequires:  pkgconfig(libpulse) >= 1.0
-#BuildRequires:  pkgconfig(libsixel) >= 1.5
-BuildRequires:  pkgconfig(libswresample) >= 4.10.100
-BuildRequires:  pkgconfig(libswscale) >= 7.1.100
+BuildRequires:  pkgconfig(libsixel) >= 1.5
+BuildRequires:  pkgconfig(libswresample) >= 3.9.100
+BuildRequires:  pkgconfig(libswscale) >= 5.9.100
 BuildRequires:  pkgconfig(libv4l2)
 BuildRequires:  pkgconfig(libva) >= 1.1.0
 BuildRequires:  pkgconfig(libva-drm) >= 1.1.0
@@ -204,7 +201,7 @@ export CCFLAGS="%{optflags} -I%{_includedir}/cuda"
   -D sdl2=enabled \
   -D sdl2-video=enabled \
   -D shaderc=enabled \
-  -D sixel=disabled \
+  -D sixel=enabled \
   -D sndio=disabled \
   -D spirv-cross=disabled \
   -D swift-build=disabled \
@@ -263,6 +260,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_datadir}/zsh/site-functions/_%{name}
 
 %changelog
+* Fri Apr 12 2024 Simone Caronni <negativo17@gmail.com> - 1:0.36.0-3
+- Adjust build dependencies.
+
 * Wed Feb 07 2024 Simone Caronni <negativo17@gmail.com> - 1:0.36.0-2
 - Rename libs-devel subpackage to devel.
 
