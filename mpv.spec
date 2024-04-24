@@ -1,5 +1,5 @@
 Name:           mpv
-Version:        0.37.0
+Version:        0.38.0
 Release:        1%{?dist}
 Epoch:          1
 Summary:        Movie player playing most video formats and DVDs
@@ -13,7 +13,7 @@ BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
 BuildRequires:  libatomic
 BuildRequires:  libjpeg-turbo-devel
-BuildRequires:  libshaderc-devel
+#BuildRequires:  libshaderc-devel
 # Required by xpresent:
 BuildRequires:  libXfixes-devel
 BuildRequires:  luajit-devel
@@ -60,7 +60,7 @@ BuildRequires:  pkgconfig(mujs) >= 1.0.0
 BuildRequires:  pkgconfig(openal) >= 1.13
 BuildRequires:  pkgconfig(rubberband) >= 3.0.0
 BuildRequires:  pkgconfig(sdl2)
-BuildRequires:  pkgconfig(shaderc)
+#BuildRequires:  pkgconfig(shaderc)
 BuildRequires:  pkgconfig(uchardet)
 BuildRequires:  pkgconfig(vapoursynth) >= 26
 BuildRequires:  pkgconfig(vapoursynth-script) >= 26
@@ -133,6 +133,7 @@ export CCFLAGS="%{optflags} -I%{_includedir}/cuda"
 # Must explicitly disable all the stuff for other OSes (!):
 %meson \
   -D alsa=enabled \
+  -D avfoundation=disabled \
   -D android-media-ndk=disabled \
   -D audiounit=disabled \
   -D build-date=true \
@@ -190,13 +191,12 @@ export CCFLAGS="%{optflags} -I%{_includedir}/cuda"
   -D pipewire=enabled \
   -D plain-gl=enabled \
   -D pulse=enabled \
-  -D rpi-mmal=disabled \
   -D rubberband=enabled \
   -D sdl2-audio=enabled \
   -D sdl2-gamepad=enabled \
   -D sdl2=enabled \
   -D sdl2-video=enabled \
-  -D shaderc=enabled \
+  -D shaderc=disabled \
   -D sixel=enabled \
   -D sndio=disabled \
   -D spirv-cross=disabled \
@@ -205,6 +205,7 @@ export CCFLAGS="%{optflags} -I%{_includedir}/cuda"
   -D vaapi-drm=enabled \
   -D vaapi=enabled \
   -D vaapi-wayland=enabled \
+  -D vaapi-win32=disabled \
   -D vaapi-x11=enabled \
   -D vapoursynth=enabled \
   -D vdpau-gl-x11=enabled \
@@ -257,6 +258,10 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_datadir}/zsh/site-functions/_%{name}
 
 %changelog
+* Wed Apr 24 2024 Simone Caronni <negativo17@gmail.com> - 1:0.38.0-1
+- Update to 0.38.0.
+- Momentarily disable shaderc as it's not compatible with version 2024+.
+
 * Thu Apr 04 2024 Simone Caronni <negativo17@gmail.com> - 1:0.37.0-1
 - Update to 0.37.0.
 
