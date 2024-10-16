@@ -1,5 +1,5 @@
 Name:           mpv
-Version:        0.38.0
+Version:        0.39.0
 Release:        1%{?dist}
 Epoch:          1
 Summary:        Movie player playing most video formats and DVDs
@@ -180,6 +180,10 @@ export CCFLAGS="%{optflags} -I%{_includedir}/cuda"
   -D libbluray=enabled \
   -D libmpv=true \
   -D lua=enabled \
+  -D macos-10-15-4-features=disabled \
+  -D macos-11-features=disabled \
+  -D macos-11-3-features=disabled \
+  -D macos-12-features=disabled \
   -D macos-cocoa-cb=disabled \
   -D macos-media-player=disabled \
   -D macos-touchbar=disabled \
@@ -214,7 +218,6 @@ export CCFLAGS="%{optflags} -I%{_includedir}/cuda"
   -D videotoolbox-gl=disabled \
   -D videotoolbox-pl=disabled \
   -D vulkan=enabled \
-  -D vulkan-interop=enabled \
   -D wasapi=disabled \
   -D wayland=enabled \
   -D win32-threads=disabled \
@@ -258,6 +261,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_datadir}/zsh/site-functions/_%{name}
 
 %changelog
+* Wed Oct 16 2024 Simone Caronni <negativo17@gmail.com> - 1:0.39.0-1
+- Update to 0.39.0.
+
 * Wed Apr 24 2024 Simone Caronni <negativo17@gmail.com> - 1:0.38.0-1
 - Update to 0.38.0.
 - Momentarily disable shaderc as it's not compatible with version 2024+.
