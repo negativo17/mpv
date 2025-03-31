@@ -1,5 +1,5 @@
 Name:           mpv
-Version:        0.39.0
+Version:        0.40.0
 Release:        1%{?dist}
 Epoch:          1
 Summary:        Movie player playing most video formats and DVDs
@@ -12,44 +12,41 @@ BuildRequires:  gcc
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
 BuildRequires:  libatomic
-BuildRequires:  libjpeg-turbo-devel
-#BuildRequires:  libshaderc-devel
 # Required by xpresent:
 BuildRequires:  libXfixes-devel
-BuildRequires:  luajit-devel
-BuildRequires:  meson >= 0.62.0
+BuildRequires:  meson >= 1.3.0
 BuildRequires:  python3-docutils
 BuildRequires:  rst2pdf
-BuildRequires:  vulkan-headers >= 1.3.238
 
 BuildRequires:  pkgconfig(alsa) >= 1.0.18
 BuildRequires:  pkgconfig(caca) >= 0.99.beta18
 BuildRequires:  pkgconfig(dvdnav) >= 4.2.0
 BuildRequires:  pkgconfig(dvdread) >= 4.1.0
-BuildRequires:  pkgconfig(egl) >= 1.5
+BuildRequires:  pkgconfig(egl) >= 1.4.0
 BuildRequires:  pkgconfig(ffnvcodec) >= 11.1.5.1
 BuildRequires:  pkgconfig(gbm) >= 17.1.0
 BuildRequires:  pkgconfig(gl)
 BuildRequires:  pkgconfig(jack)
 BuildRequires:  pkgconfig(lcms2) >= 2.6
 BuildRequires:  pkgconfig(libarchive) >= 3.4.0
-BuildRequires:  pkgconfig(libavcodec) >= 60.3.100
-BuildRequires:  pkgconfig(libavdevice) >= 60.1.100
-BuildRequires:  pkgconfig(libavfilter) >= 9.3.100
-BuildRequires:  pkgconfig(libavformat) >= 60.3.100
-BuildRequires:  pkgconfig(libavutil) >= 58.2.100
+BuildRequires:  pkgconfig(libavcodec) >= 60.31.102
+BuildRequires:  pkgconfig(libavdevice) >= 60.3.100
+BuildRequires:  pkgconfig(libavfilter) >= 9.12.100
+BuildRequires:  pkgconfig(libavformat) >= 60.16.100
+BuildRequires:  pkgconfig(libavutil) >= 58.29.100
 BuildRequires:  pkgconfig(libass) >= 0.12.2
 BuildRequires:  pkgconfig(libbluray) >= 0.3.0
 BuildRequires:  pkgconfig(libcdio) >= 0.90
 BuildRequires:  pkgconfig(libcdio_paranoia)
+BuildRequires:  pkgconfig(libdisplay-info) >= 0.1.1
 BuildRequires:  pkgconfig(libdrm) >= 2.4.105
 BuildRequires:  pkgconfig(libjpeg)
-BuildRequires:  pkgconfig(libpipewire-0.3) >= 0.3.48
-BuildRequires:  pkgconfig(libplacebo) >= 6.338.0
+BuildRequires:  pkgconfig(libpipewire-0.3) >= 0.3.57
+BuildRequires:  pkgconfig(libplacebo) >= 6.338.2
 BuildRequires:  pkgconfig(libpulse) >= 1.0
 BuildRequires:  pkgconfig(libsixel) >= 1.5
-BuildRequires:  pkgconfig(libswresample) >= 4.10.100
-BuildRequires:  pkgconfig(libswscale) >= 7.1.100
+BuildRequires:  pkgconfig(libswresample) >= 4.12.100
+BuildRequires:  pkgconfig(libswscale) >= 7.5.100
 BuildRequires:  pkgconfig(libv4l2)
 BuildRequires:  pkgconfig(libva) >= 1.1.0
 BuildRequires:  pkgconfig(libva-drm) >= 1.1.0
@@ -61,14 +58,17 @@ BuildRequires:  pkgconfig(openal) >= 1.13
 BuildRequires:  pkgconfig(rubberband) >= 3.0.0
 BuildRequires:  pkgconfig(sdl2)
 #BuildRequires:  pkgconfig(shaderc)
+#BuildRequires:  pkgconfig(sndio) >= 1.9.0
+#BuildRequires:  pkgconfig(spirv-cross-c-shared)
 BuildRequires:  pkgconfig(uchardet)
-BuildRequires:  pkgconfig(vapoursynth) >= 26
-BuildRequires:  pkgconfig(vapoursynth-script) >= 26
+BuildRequires:  pkgconfig(vapoursynth) >= 56
+BuildRequires:  pkgconfig(vapoursynth-script) >= 56
 BuildRequires:  pkgconfig(vdpau) >= 0.2
-BuildRequires:  pkgconfig(vulkan) >= 1.1.70
-BuildRequires:  pkgconfig(wayland-client) >= 1.20.0
-BuildRequires:  pkgconfig(wayland-cursor) >= 1.20.0
-BuildRequires:  pkgconfig(wayland-protocols) >= 1.25
+BuildRequires:  pkgconfig(vulkan) >= 1.3.238
+BuildRequires:  pkgconfig(wayland-client) >= 1.21.0
+BuildRequires:  pkgconfig(wayland-cursor) >= 1.21.0
+BuildRequires:  pkgconfig(wayland-egl) >= 9.0.0
+BuildRequires:  pkgconfig(wayland-protocols) >= 1.31
 BuildRequires:  pkgconfig(wayland-scanner)
 BuildRequires:  pkgconfig(x11) >= 1.0.0
 BuildRequires:  pkgconfig(xext) >= 1.0.0
@@ -78,7 +78,7 @@ BuildRequires:  pkgconfig(xpresent) >= 1.0.0
 BuildRequires:  pkgconfig(xrandr) >= 1.4.0
 BuildRequires:  pkgconfig(xscrnsaver) >= 1.0.0
 BuildRequires:  pkgconfig(xv)
-BuildRequires:  pkgconfig(zimg) >= 3.0.5
+BuildRequires:  pkgconfig(zimg) >= 2.9
 BuildRequires:  pkgconfig(zlib)
 BuildRequires:  pkgconfig(mujs) >= 1.0.0
 BuildRequires:  pkgconfig(wayland-egl) >= 9.0.0
@@ -89,6 +89,9 @@ Requires(postun):   desktop-file-utils
 Requires:           hicolor-icon-theme
 
 Provides:       mplayer-backend
+
+Obsoletes:      mpv-zsh < %{?epoch:%{epoch}:}%{version}-%{release}
+Provides:       mpv-zsh = %{?epoch:%{epoch}:}%{version}-%{release}
 
 %description
 Mpv is a movie player based on MPlayer and mplayer2. It supports a wide variety
@@ -115,21 +118,10 @@ Requires:       pkgconfig
 %description    devel
 Libmpv development header files and libraries.
 
-%package zsh
-Summary:        zsh completion functions for MPV
-Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
-Requires:       zsh
-
-%description zsh
-zsh completion functions for MPV.
-
 %prep
 %autosetup -p1
 
 %build
-export CFLAGS="%{optflags} -I%{_includedir}/cuda"
-export CCFLAGS="%{optflags} -I%{_includedir}/cuda"
-
 # Must explicitly disable all the stuff for other OSes (!):
 %meson \
   -D alsa=enabled \
@@ -241,12 +233,14 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_docdir}/%{name}
 %{_bindir}/%{name}
 %{_datadir}/applications/%{name}.desktop
-%{_datadir}/bash-completion/completions/%{name}
 %{_datadir}/icons/hicolor/*/apps/%{name}*.*
 %{_metainfodir}/%{name}.metainfo.xml
 %{_mandir}/man1/%{name}.*
 %dir %{_sysconfdir}/%{name}
 %config(noreplace) %{_sysconfdir}/%{name}/encoding-profiles.conf
+%{bash_completions_dir}/%{name}
+%{fish_completions_dir}/%{name}.fish
+%{zsh_completions_dir}/_%{name}
 
 %files libs
 %license LICENSE.* Copyright
@@ -257,10 +251,11 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_libdir}/libmpv.so
 %{_libdir}/pkgconfig/mpv.pc
 
-%files zsh
-%{_datadir}/zsh/site-functions/_%{name}
-
 %changelog
+* Mon Mar 31 2025 Simone Caronni <negativo17@gmail.com> - 1:0.40.0-1
+- Update to 0.40.0.
+- Update shell completion installation.
+
 * Wed Oct 16 2024 Simone Caronni <negativo17@gmail.com> - 1:0.39.0-1
 - Update to 0.39.0.
 
