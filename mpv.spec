@@ -1,5 +1,5 @@
 Name:           mpv
-Version:        0.40.0
+Version:        0.41.0
 Release:        1%{?dist}
 Epoch:          1
 Summary:        Movie player playing most video formats and DVDs
@@ -124,9 +124,11 @@ Libmpv development header files and libraries.
 %build
 # Must explicitly disable all the stuff for other OSes (!):
 %meson \
+  -D aaudio=disabled \
   -D alsa=enabled \
   -D avfoundation=disabled \
   -D android-media-ndk=disabled \
+  -D audiotrack=disabled \
   -D audiounit=disabled \
   -D build-date=true \
   -D caca=enabled \
@@ -190,7 +192,6 @@ Libmpv development header files and libraries.
   -D rubberband=enabled \
   -D sdl2-audio=enabled \
   -D sdl2-gamepad=enabled \
-  -D sdl2=enabled \
   -D sdl2-video=enabled \
   -D shaderc=disabled \
   -D sixel=enabled \
@@ -236,8 +237,6 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/*/apps/%{name}*.*
 %{_metainfodir}/%{name}.metainfo.xml
 %{_mandir}/man1/%{name}.*
-%dir %{_sysconfdir}/%{name}
-%config(noreplace) %{_sysconfdir}/%{name}/encoding-profiles.conf
 %{bash_completions_dir}/%{name}
 %{fish_completions_dir}/%{name}.fish
 %{zsh_completions_dir}/_%{name}
@@ -252,6 +251,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_libdir}/pkgconfig/mpv.pc
 
 %changelog
+* Fri Jan 23 2026 Simone Caronni <negativo17@gmail.com> - 1:0.41.0-1
+- Update to 0.41.0.
+
 * Mon Mar 31 2025 Simone Caronni <negativo17@gmail.com> - 1:0.40.0-1
 - Update to 0.40.0.
 - Update shell completion installation.
