@@ -1,6 +1,6 @@
 Name:           mpv
 Version:        0.41.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Epoch:          1
 Summary:        Movie player playing most video formats and DVDs
 License:        GPLv2+ and LGPLv2+
@@ -12,11 +12,8 @@ BuildRequires:  gcc
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
 BuildRequires:  libatomic
-# Required by xpresent:
-BuildRequires:  libXfixes-devel
 BuildRequires:  meson >= 1.3.0
 BuildRequires:  python3-docutils
-BuildRequires:  rst2pdf
 
 BuildRequires:  pkgconfig(alsa) >= 1.0.18
 BuildRequires:  pkgconfig(caca) >= 0.99.beta18
@@ -74,7 +71,6 @@ BuildRequires:  pkgconfig(x11) >= 1.0.0
 BuildRequires:  pkgconfig(xext) >= 1.0.0
 BuildRequires:  pkgconfig(xinerama) >= 1.0.0
 BuildRequires:  pkgconfig(xkbcommon) >= 0.3.0
-BuildRequires:  pkgconfig(xpresent) >= 1.0.0
 BuildRequires:  pkgconfig(xrandr) >= 1.4.0
 BuildRequires:  pkgconfig(xscrnsaver) >= 1.0.0
 BuildRequires:  pkgconfig(xv)
@@ -82,6 +78,13 @@ BuildRequires:  pkgconfig(zimg) >= 2.9
 BuildRequires:  pkgconfig(zlib)
 BuildRequires:  pkgconfig(mujs) >= 1.0.0
 BuildRequires:  pkgconfig(wayland-egl) >= 9.0.0
+
+%if 0%{?fedora}
+# Required by xpresent:
+BuildRequires:  libXfixes-devel
+BuildRequires:  rst2pdf
+BuildRequires:  pkgconfig(xpresent) >= 1.0.0
+%endif
 
 Requires:           bash-completion
 Requires(post):     desktop-file-utils
@@ -251,6 +254,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_libdir}/pkgconfig/mpv.pc
 
 %changelog
+* Sat Feb 14 2026 Simone Caronni <negativo17@gmail.com> - 1:0.41.0-2
+- Allow building on el10.
+
 * Fri Jan 23 2026 Simone Caronni <negativo17@gmail.com> - 1:0.41.0-1
 - Update to 0.41.0.
 
