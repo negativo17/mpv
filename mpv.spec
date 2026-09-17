@@ -1,12 +1,13 @@
 Name:           mpv
 Version:        0.41.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Epoch:          1
 Summary:        Movie player playing most video formats and DVDs
 License:        GPLv2+ and LGPLv2+
 URL:            http://%{name}.io/
 
 Source0:        https://github.com/%{name}-player/%{name}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
+Patch0:         https://github.com/mpv-player/mpv/commit/75b2ccfeb1ce4ed5a40ac9860fa74f3d1265e13f.patch
 
 BuildRequires:  gcc
 BuildRequires:  desktop-file-utils
@@ -59,7 +60,6 @@ BuildRequires:  pkgconfig(sdl2)
 #BuildRequires:  pkgconfig(spirv-cross-c-shared)
 BuildRequires:  pkgconfig(uchardet)
 BuildRequires:  pkgconfig(vapoursynth) >= 56
-BuildRequires:  pkgconfig(vapoursynth-script) >= 56
 BuildRequires:  pkgconfig(vdpau) >= 0.2
 BuildRequires:  pkgconfig(vulkan) >= 1.3.238
 BuildRequires:  pkgconfig(wayland-client) >= 1.21.0
@@ -254,6 +254,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_libdir}/pkgconfig/mpv.pc
 
 %changelog
+* Thu Sep 17 2026 Simone Caronni <negativo17@gmail.com> - 1:0.41.0-5
+- Update build requirements.
+
 * Mon Mar 23 2026 Simone Caronni <negativo17@gmail.com> - 1:0.41.0-4
 - Rebuild for updated dependencies.
 
