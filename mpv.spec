@@ -1,6 +1,6 @@
 Name:           mpv
 Version:        0.36.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Epoch:          1
 Summary:        Movie player playing most video formats and DVDs
 License:        GPLv2+ and LGPLv2+
@@ -259,6 +259,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_datadir}/zsh/site-functions/_%{name}
 
 %changelog
+* Tue Oct 06 2026 Simone Caronni <negativo17@gmail.com> - 1:0.36.0-2
+- Rebuild for updated dependencies.
+
 * Fri Apr 12 2024 Simone Caronni <negativo17@gmail.com> - 1:0.36.0-1
 - Rebase on 0.36.0.
 - Trim changelog.
