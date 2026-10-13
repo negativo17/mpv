@@ -1,6 +1,15 @@
+%if 0%{?fedora}
+%global x11 enabled
+%global pdf enabled
+%else
+# No xpresent and rst2pdf on EL, and no X.org server on EL 10
+%global x11 disabled
+%global pdf disabled
+%endif
+
 Name:           mpv
 Version:        0.41.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Epoch:          1
 Summary:        Movie player playing most video formats and DVDs
 License:        GPLv2+ and LGPLv2+
@@ -48,7 +57,6 @@ BuildRequires:  pkgconfig(libswscale) >= 7.5.100
 BuildRequires:  pkgconfig(libv4l2)
 BuildRequires:  pkgconfig(libva) >= 1.1.0
 BuildRequires:  pkgconfig(libva-drm) >= 1.1.0
-BuildRequires:  pkgconfig(libva-x11) >= 1.1.0
 BuildRequires:  pkgconfig(libva-wayland) >= 1.1.0
 BuildRequires:  pkgconfig(lua-5.1)
 BuildRequires:  pkgconfig(mujs) >= 1.0.0
@@ -60,30 +68,30 @@ BuildRequires:  pkgconfig(sdl2)
 #BuildRequires:  pkgconfig(spirv-cross-c-shared)
 BuildRequires:  pkgconfig(uchardet)
 BuildRequires:  pkgconfig(vapoursynth) >= 56
-BuildRequires:  pkgconfig(vdpau) >= 0.2
 BuildRequires:  pkgconfig(vulkan) >= 1.3.238
 BuildRequires:  pkgconfig(wayland-client) >= 1.21.0
 BuildRequires:  pkgconfig(wayland-cursor) >= 1.21.0
 BuildRequires:  pkgconfig(wayland-egl) >= 9.0.0
 BuildRequires:  pkgconfig(wayland-protocols) >= 1.31
 BuildRequires:  pkgconfig(wayland-scanner)
-BuildRequires:  pkgconfig(x11) >= 1.0.0
-BuildRequires:  pkgconfig(xext) >= 1.0.0
-BuildRequires:  pkgconfig(xinerama) >= 1.0.0
 BuildRequires:  pkgconfig(xkbcommon) >= 0.3.0
-BuildRequires:  pkgconfig(xrandr) >= 1.4.0
-BuildRequires:  pkgconfig(xscrnsaver) >= 1.0.0
-BuildRequires:  pkgconfig(xv)
 BuildRequires:  pkgconfig(zimg) >= 2.9
 BuildRequires:  pkgconfig(zlib)
 BuildRequires:  pkgconfig(mujs) >= 1.0.0
 BuildRequires:  pkgconfig(wayland-egl) >= 9.0.0
 
 %if 0%{?fedora}
-# Required by xpresent:
-BuildRequires:  libXfixes-devel
 BuildRequires:  rst2pdf
+BuildRequires:  pkgconfig(libva-x11) >= 1.1.0
+BuildRequires:  pkgconfig(vdpau) >= 0.2
+BuildRequires:  pkgconfig(x11) >= 1.0.0
+BuildRequires:  pkgconfig(xext) >= 1.0.0
+BuildRequires:  pkgconfig(xfixes) >= 1.0.0
+BuildRequires:  pkgconfig(xinerama) >= 1.0.0
 BuildRequires:  pkgconfig(xpresent) >= 1.0.0
+BuildRequires:  pkgconfig(xrandr) >= 1.4.0
+BuildRequires:  pkgconfig(xscrnsaver) >= 1.0.0
+BuildRequires:  pkgconfig(xv)
 %endif
 
 Requires:           bash-completion
@@ -157,14 +165,14 @@ Libmpv development header files and libraries.
   -D egl-angle-lib=disabled \
   -D egl-angle-win32=disabled \
   -D egl-wayland=enabled \
-  -D egl-x11=enabled \
+  -D egl-x11=%{x11} \
   -D gbm=enabled \
   -D gl=enabled \
   -D gl-cocoa=disabled \
   -D gl-dxinterop=disabled \
   -D gl-dxinterop-d3d9=disabled \
   -D gl-win32=disabled \
-  -D gl-x11=enabled \
+  -D gl-x11=%{x11} \
   -D html-build=enabled \
   -D iconv=enabled \
   -D ios-gl=disabled \
@@ -188,7 +196,7 @@ Libmpv development header files and libraries.
   -D openal=enabled \
   -D opensles=disabled \
   -D oss-audio=disabled \
-  -D pdf-build=enabled \
+  -D pdf-build=%{pdf} \
   -D pipewire=enabled \
   -D plain-gl=enabled \
   -D pulse=enabled \
@@ -206,10 +214,10 @@ Libmpv development header files and libraries.
   -D vaapi=enabled \
   -D vaapi-wayland=enabled \
   -D vaapi-win32=disabled \
-  -D vaapi-x11=enabled \
+  -D vaapi-x11=%{x11} \
   -D vapoursynth=enabled \
-  -D vdpau-gl-x11=enabled \
-  -D vdpau=enabled \
+  -D vdpau-gl-x11=%{x11} \
+  -D vdpau=%{x11} \
   -D vector=enabled \
   -D videotoolbox-gl=disabled \
   -D videotoolbox-pl=disabled \
@@ -217,8 +225,9 @@ Libmpv development header files and libraries.
   -D wasapi=disabled \
   -D wayland=enabled \
   -D win32-threads=disabled \
-  -D x11=enabled \
-  -D xv=enabled \
+  -D x11=%{x11} \
+  -D x11-clipboard=%{x11} \
+  -D xv=%{x11} \
   -D zimg=enabled \
   -D zlib=enabled
 
@@ -254,6 +263,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_libdir}/pkgconfig/mpv.pc
 
 %changelog
+* Tue Oct 13 2026 Simone Caronni <negativo17@gmail.com> - 1:0.41.0-7
+- Fix build on el10, disable X11 support and PDF documentation.
+
 * Sun Sep 20 2026 Simone Caronni <negativo17@gmail.com> - 1:0.41.0-6
 - Rebuild for updated dependencies.
 
