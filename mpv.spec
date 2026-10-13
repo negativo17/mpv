@@ -1,6 +1,6 @@
 Name:           mpv
 Version:        0.34.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Epoch:          1
 Summary:        Movie player playing most video formats and DVDs
 License:        GPLv2+ and LGPLv2+
@@ -169,6 +169,9 @@ install -Dpm 644 README.md etc/input.conf etc/mpv.conf -t %{buildroot}%{_docdir}
 %{_datadir}/zsh/site-functions/_%{name}
 
 %changelog
+* Tue Oct 13 2026 Simone Caronni <negativo17@gmail.com> - 1:0.34.1-6
+- Rebuild for downgraded nv-codec-headers.
+
 * Wed Feb 07 2024 Simone Caronni <negativo17@gmail.com> - 1:0.34.1-5
 - Rename libs-devel subpackage to devel.
 
